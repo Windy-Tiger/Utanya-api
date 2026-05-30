@@ -1,20 +1,13 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
-import voyageai
-import anthropic
-import asyncpg
-import json
 import os
+import json
 import tempfile
-from database import get_pool
 from dotenv import load_dotenv
 
 load_dotenv()
 
 router = APIRouter()
-
-vo = voyageai.Client(api_key=os.environ.get("VOYAGE_API_KEY"))
-ac = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
 SYSTEM_PROMPT = """You are a BODIVA capital markets research assistant for Utanya.
 
@@ -22,13 +15,22 @@ Rules you must follow without exception:
 1. Answer ONLY using the provided context documents. Never use prior knowledge.
 2. For every factual claim, cite the source (document title, section, date).
 3. If the context does not contain enough information, say explicitly:
-   "Não tenho essa informação na minha base de conhecimento."
+   "Nao tenho essa informacao na minha base de conhecimento."
 4. Never give personalized investment advice or recommendations.
 5. For anything transactional (buying, selling, account opening),
    direct the user to their SCVM intermediary.
 6. If asked about current prices or yields, note the date of your latest bulletin.
 7. Always respond in the same language the question was asked in.
 8. When quoting numbers, always state the source document and date."""
+
+
+def get_voyage():
+    import voyageai
+    return voyageai.Client(api_key=os.environ.get("VOYAGE_API_KEY"))
+
+def get_anthropic():
+    import anthropic
+    return anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
 
 # --- MODELS ---
@@ -38,7 +40,7 @@ class QueryRequest(BaseModel):
 
 class IngestTextRequest(BaseModel):
     title: str
-    doc_type: str  # 'bulletin', 'legislation', 'regulation', 'report', 'note'
+    doc_type: str
     content: str
     doc_date: str | None = None
     source_url: str | None = None
@@ -49,11 +51,10 @@ class IngestTextRequest(BaseModel):
 
 @router.post("/setup")
 async def setup_database():
-    """Enable pgvector and create tables. Run once after creating the Railway Postgres."""
+    from database import get_pool
     pool = await get_pool()
     async with pool.acquire() as conn:
         await conn.execute("CREATE EXTENSION IF NOT EXISTS vector")
-
         await conn.execute("""
             CREATE TABLE IF NOT EXISTS rag_documents (
                 id          SERIAL PRIMARY KEY,
@@ -64,7 +65,6 @@ async def setup_database():
                 created_at  TIMESTAMP DEFAULT NOW()
             )
         """)
-
         await conn.execute("""
             CREATE TABLE IF NOT EXISTS rag_chunks (
                 id          SERIAL PRIMARY KEY,
@@ -75,30 +75,24 @@ async def setup_database():
                 created_at  TIMESTAMP DEFAULT NOW()
             )
         """)
-
-        # Semantic similarity index
         await conn.execute("""
             CREATE INDEX IF NOT EXISTS rag_chunks_embedding_idx
             ON rag_chunks
             USING ivfflat (embedding vector_cosine_ops)
             WITH (lists = 100)
         """)
-
-        # Full-text search index for exact codes (OI15F31A, Artigo 79, etc.)
         await conn.execute("""
             CREATE INDEX IF NOT EXISTS rag_chunks_fts_idx
             ON rag_chunks
             USING gin(to_tsvector('portuguese', content))
         """)
-
     return {"status": "Database ready", "tables": ["rag_documents", "rag_chunks"]}
 
 
-# --- INGEST ---
+# --- INGEST TEXT ---
 
 @router.post("/ingest/text")
 async def ingest_text(request: IngestTextRequest):
-    """Ingest a plain text document (legislation articles, notes, etc.)"""
     chunks = chunk_text(request.content, request.metadata)
     doc_id = await store_document_and_chunks(
         title=request.title,
@@ -114,6 +108,8 @@ async def ingest_text(request: IngestTextRequest):
     }
 
 
+# --- INGEST PDF ---
+
 @router.post("/ingest/pdf")
 async def ingest_pdf(
     file: UploadFile = File(...),
@@ -122,8 +118,7 @@ async def ingest_pdf(
     doc_date: str = None,
     source_url: str = None
 ):
-    """Upload and ingest a PDF document."""
-    import fitz  # pymupdf
+    import fitz
 
     if not file.filename.endswith(".pdf"):
         raise HTTPException(status_code=400, detail="File must be a PDF")
@@ -141,7 +136,6 @@ async def ingest_pdf(
             full_text += page.get_text() + "\n\n"
         doc.close()
 
-        # Use filename as title if not provided
         if not title:
             title = file.filename.replace(".pdf", "")
 
@@ -168,11 +162,14 @@ async def ingest_pdf(
 
 @router.post("/query")
 async def query(request: QueryRequest):
-    """Ask a question and get a sourced answer from the knowledge base."""
+    from database import get_pool
+
     if not request.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty")
 
-    # Embed the question
+    vo = get_voyage()
+    ac = get_anthropic()
+
     q_embedding = vo.embed(
         [request.question],
         model="voyage-3"
@@ -180,8 +177,6 @@ async def query(request: QueryRequest):
 
     pool = await get_pool()
     async with pool.acquire() as conn:
-
-        # Semantic search
         semantic_results = await conn.fetch("""
             SELECT
                 rc.content,
@@ -196,7 +191,6 @@ async def query(request: QueryRequest):
             LIMIT 5
         """, str(q_embedding))
 
-        # Keyword search (catches exact codes like OI15F31A, Artigo 79, etc.)
         keyword_results = await conn.fetch("""
             SELECT
                 rc.content,
@@ -212,7 +206,6 @@ async def query(request: QueryRequest):
             LIMIT 3
         """, request.question)
 
-    # Combine and deduplicate
     seen = set()
     all_chunks = []
     for row in list(semantic_results) + list(keyword_results):
@@ -223,16 +216,17 @@ async def query(request: QueryRequest):
 
     if not all_chunks:
         return {
-            "answer": "Não tenho informação suficiente na base de conhecimento para responder a esta questão.",
+            "answer": "Nao tenho informacao suficiente na base de conhecimento para responder a esta questao.",
             "sources": []
         }
 
-    # Build context with citations
     context_parts = []
     sources = []
     for i, chunk in enumerate(all_chunks[:6]):
         date_str = f" ({chunk['doc_date']})" if chunk['doc_date'] else ""
-        meta = json.loads(chunk['metadata']) if isinstance(chunk['metadata'], str) else chunk['metadata']
+        meta = chunk['metadata']
+        if isinstance(meta, str):
+            meta = json.loads(meta)
         section = meta.get('section') or meta.get('article') or ''
         citation = f"[{i+1}] {chunk['title']}{date_str}"
         if section:
@@ -249,7 +243,6 @@ async def query(request: QueryRequest):
 
     context = "\n\n---\n\n".join(context_parts)
 
-    # Generate answer with Claude
     response = ac.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=1000,
@@ -266,21 +259,17 @@ async def query(request: QueryRequest):
     }
 
 
-# --- DOCUMENTS LIST ---
+# --- LIST DOCUMENTS ---
 
 @router.get("/documents")
 async def list_documents():
-    """List all documents in the knowledge base."""
+    from database import get_pool
     pool = await get_pool()
     async with pool.acquire() as conn:
         rows = await conn.fetch("""
             SELECT
-                d.id,
-                d.title,
-                d.doc_type,
-                d.doc_date,
-                d.source_url,
-                d.created_at,
+                d.id, d.title, d.doc_type, d.doc_date,
+                d.source_url, d.created_at,
                 COUNT(c.id) AS chunk_count
             FROM rag_documents d
             LEFT JOIN rag_chunks c ON c.document_id = d.id
@@ -290,9 +279,11 @@ async def list_documents():
     return [dict(row) for row in rows]
 
 
+# --- DELETE DOCUMENT ---
+
 @router.delete("/documents/{doc_id}")
 async def delete_document(doc_id: int):
-    """Remove a document and all its chunks."""
+    from database import get_pool
     pool = await get_pool()
     async with pool.acquire() as conn:
         result = await conn.execute(
@@ -305,29 +296,25 @@ async def delete_document(doc_id: int):
 
 # --- HELPERS ---
 
-def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800, overlap: int = 100) -> list:
-    """Split text into overlapping chunks."""
-    # Try to split on article markers first (for legislation)
+def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800) -> list:
     import re
-    article_pattern = re.compile(r'(Art(?:igo)?\.?\s*\d+\.?º?)', re.IGNORECASE)
+    article_pattern = re.compile(r'(Art(?:igo)?\.?\s*\d+\.?)', re.IGNORECASE)
     articles = article_pattern.split(text)
 
     chunks = []
     if len(articles) > 3:
-        # Successfully found article structure
         i = 1
         while i < len(articles) - 1:
-            article_header = articles[i]
-            article_body = articles[i + 1] if i + 1 < len(articles) else ""
-            content = (article_header + article_body).strip()
+            header = articles[i]
+            body = articles[i + 1] if i + 1 < len(articles) else ""
+            content = (header + body).strip()
             if len(content) > 50:
                 chunks.append({
                     "content": content[:1500],
-                    "metadata": {**base_metadata, "article": article_header.strip()}
+                    "metadata": {**base_metadata, "article": header.strip()}
                 })
             i += 2
     else:
-        # Generic paragraph/size chunking
         paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
         current = ""
         for para in paragraphs:
@@ -340,7 +327,6 @@ def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800, overl
                         "metadata": base_metadata
                     })
                 current = para
-
         if current.strip():
             chunks.append({
                 "content": current.strip(),
@@ -350,26 +336,19 @@ def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800, overl
     return chunks if chunks else [{"content": text[:1500], "metadata": base_metadata}]
 
 
-async def store_document_and_chunks(
-    title: str,
-    doc_type: str,
-    doc_date: str | None,
-    source_url: str | None,
-    chunks: list
-) -> int:
-    """Embed all chunks and store everything in Postgres."""
-    from datetime import date as date_type
+async def store_document_and_chunks(title, doc_type, doc_date, source_url, chunks):
+    from database import get_pool
+    from datetime import datetime
 
-    # Parse date
+    vo = get_voyage()
+
     parsed_date = None
     if doc_date:
         try:
-            from datetime import datetime
             parsed_date = datetime.strptime(doc_date, "%Y-%m-%d").date()
         except ValueError:
             pass
 
-    # Embed all chunks in one API call
     texts = [c["content"] for c in chunks]
     result = vo.embed(texts, model="voyage-3")
     embeddings = result.embeddings
@@ -393,5 +372,4 @@ async def store_document_and_chunks(
                 json.dumps(chunk["metadata"]),
                 str(embedding)
                 )
-
     return doc_id

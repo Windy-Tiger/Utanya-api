@@ -15,7 +15,3 @@ async def get_pool():
             max_size=10
         )
     return _pool
-
-async def get_connection():
-    pool = await get_pool()
-    return await pool.acquire()
