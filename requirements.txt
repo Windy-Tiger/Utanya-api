@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+asyncpg
+python-dotenv
+pymupdf
+pdfplumber
+voyageai
+pgvector
+numpy
+anthropic
+python-multipart
