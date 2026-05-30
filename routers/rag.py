@@ -1,13 +1,18 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException
-from pydantic import BaseModel
 import os
 import json
 import tempfile
+from fastapi import APIRouter, UploadFile, File, HTTPException, Request, Security
+from fastapi.security.api_key import APIKeyHeader
+from pydantic import BaseModel
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from dotenv import load_dotenv
 
 load_dotenv()
 
 router = APIRouter()
+limiter = Limiter(key_func=get_remote_address)
+API_KEY_HEADER = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 SYSTEM_PROMPT = """You are a BODIVA capital markets research assistant for Utanya.
 
@@ -23,6 +28,17 @@ Rules you must follow without exception:
 7. Always respond in the same language the question was asked in.
 8. When quoting numbers, always state the source document and date."""
 
+
+# --- AUTH ---
+
+async def verify_api_key(api_key: str = Security(API_KEY_HEADER)):
+    expected = os.environ.get("API_SECRET_KEY")
+    if not expected or api_key != expected:
+        raise HTTPException(status_code=403, detail="Invalid or missing API key")
+    return api_key
+
+
+# --- CLIENTS (lazy init) ---
 
 def get_voyage():
     import voyageai
@@ -47,10 +63,11 @@ class IngestTextRequest(BaseModel):
     metadata: dict = {}
 
 
-# --- SETUP ---
+# --- SETUP (no auth needed - you run this once manually) ---
 
 @router.post("/setup")
 async def setup_database():
+    """Enable pgvector and create tables. Run once after creating the Railway Postgres."""
     from database import get_pool
     pool = await get_pool()
     async with pool.acquire() as conn:
@@ -92,13 +109,19 @@ async def setup_database():
 # --- INGEST TEXT ---
 
 @router.post("/ingest/text")
-async def ingest_text(request: IngestTextRequest):
-    chunks = chunk_text(request.content, request.metadata)
+@limiter.limit("10/minute")
+async def ingest_text(
+    request: Request,
+    body: IngestTextRequest,
+    api_key: str = Security(verify_api_key)
+):
+    """Ingest a plain text document (legislation articles, notes, etc.)"""
+    chunks = chunk_text(body.content, body.metadata)
     doc_id = await store_document_and_chunks(
-        title=request.title,
-        doc_type=request.doc_type,
-        doc_date=request.doc_date,
-        source_url=request.source_url,
+        title=body.title,
+        doc_type=body.doc_type,
+        doc_date=body.doc_date,
+        source_url=body.source_url,
         chunks=chunks
     )
     return {
@@ -111,13 +134,17 @@ async def ingest_text(request: IngestTextRequest):
 # --- INGEST PDF ---
 
 @router.post("/ingest/pdf")
+@limiter.limit("5/minute")
 async def ingest_pdf(
+    request: Request,
     file: UploadFile = File(...),
     title: str = "",
     doc_type: str = "legislation",
     doc_date: str = None,
-    source_url: str = None
+    source_url: str = None,
+    api_key: str = Security(verify_api_key)
 ):
+    """Upload and ingest a PDF document."""
     import fitz
 
     if not file.filename.endswith(".pdf"):
@@ -161,22 +188,29 @@ async def ingest_pdf(
 # --- QUERY ---
 
 @router.post("/query")
-async def query(request: QueryRequest):
+@limiter.limit("10/minute")
+async def query(
+    request: Request,
+    body: QueryRequest,
+    api_key: str = Security(verify_api_key)
+):
+    """Ask a question and get a sourced answer from the knowledge base."""
     from database import get_pool
 
-    if not request.question.strip():
+    if not body.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty")
 
     vo = get_voyage()
     ac = get_anthropic()
 
     q_embedding = vo.embed(
-        [request.question],
+        [body.question],
         model="voyage-3"
     ).embeddings[0]
 
     pool = await get_pool()
     async with pool.acquire() as conn:
+
         semantic_results = await conn.fetch("""
             SELECT
                 rc.content,
@@ -204,7 +238,7 @@ async def query(request: QueryRequest):
             WHERE to_tsvector('portuguese', rc.content)
                   @@ plainto_tsquery('portuguese', $1)
             LIMIT 3
-        """, request.question)
+        """, body.question)
 
     seen = set()
     all_chunks = []
@@ -249,7 +283,7 @@ async def query(request: QueryRequest):
         system=SYSTEM_PROMPT,
         messages=[{
             "role": "user",
-            "content": f"Context documents:\n\n{context}\n\n---\n\nQuestion: {request.question}"
+            "content": f"Context documents:\n\n{context}\n\n---\n\nQuestion: {body.question}"
         }]
     )
 
@@ -262,14 +296,19 @@ async def query(request: QueryRequest):
 # --- LIST DOCUMENTS ---
 
 @router.get("/documents")
-async def list_documents():
+async def list_documents(api_key: str = Security(verify_api_key)):
+    """List all documents in the knowledge base."""
     from database import get_pool
     pool = await get_pool()
     async with pool.acquire() as conn:
         rows = await conn.fetch("""
             SELECT
-                d.id, d.title, d.doc_type, d.doc_date,
-                d.source_url, d.created_at,
+                d.id,
+                d.title,
+                d.doc_type,
+                d.doc_date,
+                d.source_url,
+                d.created_at,
                 COUNT(c.id) AS chunk_count
             FROM rag_documents d
             LEFT JOIN rag_chunks c ON c.document_id = d.id
@@ -282,7 +321,8 @@ async def list_documents():
 # --- DELETE DOCUMENT ---
 
 @router.delete("/documents/{doc_id}")
-async def delete_document(doc_id: int):
+async def delete_document(doc_id: int, api_key: str = Security(verify_api_key)):
+    """Remove a document and all its chunks."""
     from database import get_pool
     pool = await get_pool()
     async with pool.acquire() as conn:
@@ -297,6 +337,7 @@ async def delete_document(doc_id: int):
 # --- HELPERS ---
 
 def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800) -> list:
+    """Split text into chunks, preferring article boundaries for legislation."""
     import re
     article_pattern = re.compile(r'(Art(?:igo)?\.?\s*\d+\.?)', re.IGNORECASE)
     articles = article_pattern.split(text)
@@ -337,6 +378,7 @@ def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800) -> li
 
 
 async def store_document_and_chunks(title, doc_type, doc_date, source_url, chunks):
+    """Embed all chunks and store everything in Postgres."""
     from database import get_pool
     from datetime import datetime
 
