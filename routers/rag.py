@@ -363,15 +363,15 @@ async def store_document_and_chunks(title, doc_type, doc_date, source_url, chunk
             """, title, doc_type, parsed_date, source_url)
 
             for chunk, embedding in zip(chunks, embeddings):
-                # Format embedding as PostgreSQL vector string
-vec_str = "[" + ",".join(str(x) for x in embedding) + "]"
+                vec_str = "[" + ",".join(str(x) for x in embedding) + "]"
+                await conn.execute("""
+                    INSERT INTO rag_chunks (document_id, content, metadata, embedding)
+                    VALUES ($1, $2, $3, $4::vector)
+                """,
+                doc_id,
+                chunk["content"],
+                json.dumps(chunk["metadata"]),
+                vec_str
+                )
 
-await conn.execute("""
-    INSERT INTO rag_chunks (document_id, content, metadata, embedding)
-    VALUES ($1, $2, $3, $4::vector)
-""",
-doc_id,
-chunk["content"],
-json.dumps(chunk["metadata"]),
-vec_str
-)
+    return doc_id
