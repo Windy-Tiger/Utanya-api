@@ -7,6 +7,10 @@ from pydantic import BaseModel
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from dotenv import load_dotenv
+from time_aware_retrieval import (
+        classify_query, extract_dates, build_retrieval_sql,
+        fetch_latest_summary_chunk
+    )
 
 load_dotenv()
 
@@ -275,6 +279,7 @@ async def ingest_pdf(
 
 # --- QUERY ---
 
+
 @router.post("/query")
 @limiter.limit("10/minute")
 async def query(
@@ -283,26 +288,42 @@ async def query(
     api_key: str = Security(verify_api_key)
 ):
     from database import get_pool
-
+ 
     if not body.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty")
-
+ 
     vo = get_voyage()
     ac = get_anthropic()
-
-    q_embedding = vo.embed([body.question], model="voyage-3").embeddings[0]
-
+ 
+    qtype = classify_query(body.question)
+    dates = extract_dates(body.question) if qtype in ("specific_date", "comparison") else None
+ 
+    sql, extra_params, needs_embedding = build_retrieval_sql(qtype, dates)
+ 
     pool = await get_pool()
     async with pool.acquire() as conn:
-        semantic_results = await conn.fetch("""
-            SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
-                   1 - (rc.embedding <=> $1::vector) AS similarity
-            FROM rag_chunks rc
-            JOIN rag_documents rd ON rc.document_id = rd.id
-            ORDER BY similarity DESC
-            LIMIT 5
-        """, str(q_embedding))
-
+ 
+        if needs_embedding:
+            q_embedding = vo.embed([body.question], model="voyage-3").embeddings[0]
+            semantic_results = await conn.fetch(sql, str(q_embedding), *extra_params)
+        else:
+            semantic_results = await conn.fetch(sql, *extra_params)
+ 
+        # Fallback: specific_date / comparison found nothing (date not in KB yet)
+        if qtype in ("specific_date", "comparison") and not semantic_results:
+            qtype = "current_state"
+            sql, extra_params, needs_embedding = build_retrieval_sql(qtype)
+            q_embedding = vo.embed([body.question], model="voyage-3").embeddings[0]
+            semantic_results = await conn.fetch(sql, str(q_embedding), *extra_params)
+ 
+        # Safety net: always include the latest quadro_resumo for current_state
+        if qtype == "current_state":
+            latest = await fetch_latest_summary_chunk(conn)
+            if latest:
+                existing = {r['content'][:100] for r in semantic_results}
+                if latest['content'][:100] not in existing:
+                    semantic_results = [latest] + list(semantic_results)
+ 
         keyword_results = await conn.fetch("""
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
                    0.5 AS similarity
@@ -312,7 +333,7 @@ async def query(
                   @@ plainto_tsquery('portuguese', $1)
             LIMIT 3
         """, body.question)
-
+ 
     seen = set()
     all_chunks = []
     for row in list(semantic_results) + list(keyword_results):
@@ -320,13 +341,13 @@ async def query(
         if key not in seen:
             seen.add(key)
             all_chunks.append(row)
-
+ 
     if not all_chunks:
         return {
             "answer": "Nao tenho informacao suficiente na base de conhecimento para responder.",
             "sources": []
         }
-
+ 
     context_parts = []
     sources = []
     for i, chunk in enumerate(all_chunks[:6]):
@@ -347,19 +368,17 @@ async def query(
             "section": section,
             "similarity": float(chunk['similarity'])
         })
-
+ 
     context = "\n\n---\n\n".join(context_parts)
-
+ 
     response = ac.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=1000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": f"Context:\n\n{context}\n\n---\n\nQuestion: {body.question}"}]
     )
-
-    return {"answer": response.content[0].text, "sources": sources}
-
-
+ 
+    return {"answer": response.content[0].text, "sources": sources, "query_type": qtype}
 # --- LIST DOCUMENTS ---
 
 @router.get("/documents")
@@ -423,7 +442,11 @@ def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800) -> li
     return chunks if chunks else [{"content": text[:1500], "metadata": base_metadata}]
 
 
+# REPLACE the store_document_and_chunks function at the bottom of routers/rag.py
+# with this updated version that batches embeddings
+
 async def store_document_and_chunks(title, doc_type, doc_date, source_url, chunks):
+    """Embed all chunks in batches and store everything in Postgres."""
     from database import get_pool
     from datetime import datetime
 
@@ -437,8 +460,15 @@ async def store_document_and_chunks(title, doc_type, doc_date, source_url, chunk
             pass
 
     texts = [c["content"] for c in chunks]
-    result = vo.embed(texts, model="voyage-3")
-    embeddings = result.embeddings
+
+    # Voyage AI limit: 128 texts per request
+    # Batch in groups of 100 to stay safely under the limit
+    BATCH_SIZE = 100
+    all_embeddings = []
+    for i in range(0, len(texts), BATCH_SIZE):
+        batch = texts[i:i + BATCH_SIZE]
+        result = vo.embed(batch, model="voyage-3")
+        all_embeddings.extend(result.embeddings)
 
     pool = await get_pool()
     async with pool.acquire() as conn:
@@ -448,7 +478,7 @@ async def store_document_and_chunks(title, doc_type, doc_date, source_url, chunk
                 VALUES ($1, $2, $3, $4) RETURNING id
             """, title, doc_type, parsed_date, source_url)
 
-            for chunk, embedding in zip(chunks, embeddings):
+            for chunk, embedding in zip(chunks, all_embeddings):
                 vec_str = "[" + ",".join(str(x) for x in embedding) + "]"
                 await conn.execute("""
                     INSERT INTO rag_chunks (document_id, content, metadata, embedding)

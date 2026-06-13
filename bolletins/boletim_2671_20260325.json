@@ -1,0 +1,337 @@
+{
+  "bulletin_number": 2671,
+  "date": "2026-03-25",
+  "weekday": "Quarta-feira",
+  "session_summary": {
+    "mercado_bolsa_titulos_tesouro": {
+      "total": 10218961060.98,
+      "ambiente_multilateral": {
+        "total": 163981950.10,
+        "bilhetes_tesouro": {
+          "total": 0.00,
+          "bt_28_dias": 0.00,
+          "bt_91_dias": 0.00,
+          "bt_182_dias": 0.00,
+          "bt_364_dias": 0.00
+        },
+        "obrigacoes_tesouro": {
+          "total": 163981950.10,
+          "ot_tx": 0.00,
+          "ot_nr": 163981950.10,
+          "ot_bt91": 0.00,
+          "ot_bt182": 0.00,
+          "ot_bt364": 0.00,
+          "ot_tv": 0.00,
+          "ot_me": 0.00
+        }
+      },
+      "ambiente_bilateral": {
+        "total": 10054979110.88,
+        "bilhetes_tesouro": {
+          "total": 0.00,
+          "bt_28_dias": 0.00,
+          "bt_91_dias": 0.00,
+          "bt_182_dias": 0.00,
+          "bt_364_dias": 0.00
+        },
+        "obrigacoes_tesouro": {
+          "total": 10054979110.88,
+          "ot_tx": 0.00,
+          "ot_nr": 2668104450.00,
+          "ot_bt91": 0.00,
+          "ot_bt182": 0.00,
+          "ot_bt364": 0.00,
+          "ot_tv": 0.00,
+          "ot_me": 7386874660.88
+        }
+      }
+    },
+    "mercado_bolsa_obrigacoes_privadas": {
+      "total": 11597000.00,
+      "ambiente_multilateral": 11597000.00,
+      "ambiente_bilateral": 0.00
+    },
+    "mercado_bolsa_unidades_participacao": {
+      "total": 143000.00,
+      "ambiente_multilateral": 143000.00,
+      "ambiente_bilateral": 0.00
+    },
+    "mercado_bolsa_accoes": {
+      "total": 38348705.00,
+      "ambiente_multilateral": 38348705.00,
+      "ambiente_bilateral": 0.00
+    },
+    "mercado_operacoes_reporte": {
+      "total": 18839088192.73,
+      "ot_nr": 18839088192.73
+    },
+    "total_sessao": 29108137958.71
+  },
+  "member_performance": {
+    "nota": "Negócios intrabancários single counted; interbancários double counted",
+    "total_montante": 50818334910.92,
+    "total_quantidade": 35686608,
+    "total_negocios": 177,
+    "members": [
+      {
+        "membro": "PCAP",
+        "montante": 17142708904.98,
+        "quantidade": 13234078,
+        "negocios": 14,
+        "percentagem": 33.733,
+        "vendas_interbancarias": 17142708904.98,
+        "compras_interbancarias": 0.00,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "AUREA",
+        "montante": 10167408321.51,
+        "quantidade": 4789909,
+        "negocios": 87,
+        "percentagem": 20.007,
+        "vendas_interbancarias": 51051977.00,
+        "compras_interbancarias": 10090726154.51,
+        "negocios_internos": 25630190.00
+      },
+      {
+        "membro": "EAGLESTONE",
+        "montante": 7297048000.00,
+        "quantidade": 8000,
+        "negocios": 1,
+        "percentagem": 14.359,
+        "vendas_interbancarias": 0.00,
+        "compras_interbancarias": 0.00,
+        "negocios_internos": 7297048000.00
+      },
+      {
+        "membro": "SINV",
+        "montante": 4298853301.52,
+        "quantidade": 5079952,
+        "negocios": 6,
+        "percentagem": 8.459,
+        "vendas_interbancarias": 0.00,
+        "compras_interbancarias": 4298853301.52,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "BFACM",
+        "montante": 2910989357.05,
+        "quantidade": 3513231,
+        "negocios": 30,
+        "percentagem": 5.728,
+        "vendas_interbancarias": 29298396.60,
+        "compras_interbancarias": 2853159683.95,
+        "negocios_internos": 28531266.50
+      },
+      {
+        "membro": "MADZ",
+        "montante": 2712324560.88,
+        "quantidade": 2695103,
+        "negocios": 3,
+        "percentagem": 5.337,
+        "vendas_interbancarias": 2712324560.88,
+        "compras_interbancarias": 0.00,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "FINCREST",
+        "montante": 2668104450.00,
+        "quantidade": 2695055,
+        "negocios": 2,
+        "percentagem": 5.25,
+        "vendas_interbancarias": 2668104450.00,
+        "compras_interbancarias": 0.00,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "HCPS",
+        "montante": 1703930317.75,
+        "quantidade": 1771301,
+        "negocios": 7,
+        "percentagem": 3.353,
+        "vendas_interbancarias": 2479500.00,
+        "compras_interbancarias": 1701450817.75,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "INCD",
+        "montante": 1700163817.75,
+        "quantidade": 1770817,
+        "negocios": 3,
+        "percentagem": 3.346,
+        "vendas_interbancarias": 1700109317.75,
+        "compras_interbancarias": 54500.00,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "PRIME",
+        "montante": 89826660.88,
+        "quantidade": 48,
+        "negocios": 1,
+        "vendas_interbancarias": 44220110.88,
+        "compras_interbancarias": 0.00,
+        "negocios_internos": 45606550.00
+      },
+      {
+        "membro": "KITADI",
+        "montante": 49069810.00,
+        "quantidade": 51382,
+        "negocios": 3,
+        "vendas_interbancarias": 49069810.00,
+        "compras_interbancarias": 0.00,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "LMB",
+        "montante": 31385015.60,
+        "quantidade": 29113,
+        "negocios": 5,
+        "vendas_interbancarias": 21790545.00,
+        "compras_interbancarias": 8469490.60,
+        "negocios_internos": 1125000.00
+      },
+      {
+        "membro": "VALOR",
+        "montante": 30564123.00,
+        "quantidade": 31450,
+        "negocios": 2,
+        "vendas_interbancarias": 0.00,
+        "compras_interbancarias": 30564123.00,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "RESULTADOS",
+        "montante": 14594310.00,
+        "quantidade": 15282,
+        "negocios": 1,
+        "vendas_interbancarias": 0.00,
+        "compras_interbancarias": 14594310.00,
+        "negocios_internos": 0.00
+      },
+      {
+        "membro": "LUCRUM",
+        "montante": 1363940.00,
+        "quantidade": 1451,
+        "negocios": 2,
+        "vendas_interbancarias": 1363940.00,
+        "compras_interbancarias": 0.00,
+        "negocios_internos": 0.00
+      }
+    ]
+  },
+  "bt_exchange": [],
+  "bt_exchange_nota": "Não se registaram transacções",
+  "otnr_exchange": [
+    {"codigo": "OI10L27A", "data_emissao": "2022-07-10", "data_maturidade": "2027-07-10", "cupao": "15,00%", "ytm": "18,55%", "negocios": 1, "volume_total": 1, "abertura": 96.0000, "maximo": 96.0000, "minimo": 96.0000, "cotacao_anterior": 96.0000, "cotacao_actual": 96.0000, "variacao": "0,00%"},
+    {"codigo": "ON30J33A", "data_emissao": "2023-01-30", "data_maturidade": "2033-01-30", "cupao": "17,00%", "ytm": "17,89%", "negocios": 1, "volume_total": 5, "abertura": 96.5000, "maximo": 96.5000, "minimo": 96.5000, "cotacao_anterior": 96.5000, "cotacao_actual": 96.5000, "variacao": "0,00%"},
+    {"codigo": "OI15I29A", "data_emissao": "2024-05-15", "data_maturidade": "2029-05-15", "cupao": "10,00%", "ytm": "19,07%", "negocios": 2, "volume_total": 5010, "abertura": 79.2500, "maximo": 79.2500, "minimo": 79.2500, "cotacao_anterior": 79.2500, "cotacao_actual": 79.2500, "variacao": "0,00%"},
+    {"codigo": "OI15A30A", "data_emissao": "2025-04-15", "data_maturidade": "2030-04-15", "cupao": "17,00%", "ytm": "18,25%", "negocios": 1, "volume_total": 450, "abertura": 97.0000, "maximo": 97.0000, "minimo": 97.0000, "cotacao_anterior": 97.0000, "cotacao_actual": 97.0000, "variacao": "0,00%"},
+    {"codigo": "OH15L28B", "data_emissao": "2024-07-15", "data_maturidade": "2028-07-15", "cupao": "16,75%", "ytm": "17,80%", "negocios": 1, "volume_total": 19818, "abertura": 98.0000, "maximo": 98.0000, "minimo": 98.0000, "cotacao_anterior": 98.0000, "cotacao_actual": 98.0000, "variacao": "0,00%"},
+    {"codigo": "OL01U31A", "data_emissao": "2023-06-01", "data_maturidade": "2031-06-01", "cupao": "21,00%", "ytm": "16,82%", "negocios": 3, "volume_total": 250, "abertura": 114.0000, "maximo": 114.0000, "minimo": 114.0000, "cotacao_anterior": 114.4000, "cotacao_actual": 114.4000, "variacao": "-0,35%"},
+    {"codigo": "OL10D30A", "data_emissao": "2022-10-12", "data_maturidade": "2030-10-12", "cupao": "16,50%", "ytm": "18,09%", "negocios": 1, "volume_total": 1, "abertura": 95.0000, "maximo": 95.0000, "minimo": 95.0000, "cotacao_anterior": 95.0000, "cotacao_actual": 95.0000, "variacao": "0,00%"},
+    {"codigo": "OL15M32A", "data_emissao": "2024-03-15", "data_maturidade": "2032-03-15", "cupao": "15,25%", "ytm": "17,90%", "negocios": 3, "volume_total": 17100, "abertura": 90.5000, "maximo": 90.5000, "minimo": 90.5000, "cotacao_anterior": 91.5000, "cotacao_actual": 90.5000, "variacao": "-1,09%"},
+    {"codigo": "OH15L29A", "data_emissao": "2025-07-15", "data_maturidade": "2029-07-15", "cupao": "16,75%", "ytm": "18,31%", "negocios": 1, "volume_total": 29010, "abertura": 96.1650, "maximo": 96.1650, "minimo": 96.1650, "cotacao_anterior": 96.1650, "cotacao_actual": 96.1650, "variacao": "0,00%"},
+    {"codigo": "OO01I34A", "data_emissao": "2023-05-01", "data_maturidade": "2034-05-01", "cupao": "23,00%", "ytm": "16,20%", "negocios": 1, "volume_total": 294, "abertura": 130.0000, "maximo": 130.0000, "minimo": 130.0000, "cotacao_anterior": 118.0000, "cotacao_actual": 118.0000, "variacao": "10,17%"},
+    {"codigo": "OJ15G29C", "data_emissao": "2023-08-15", "data_maturidade": "2029-08-15", "cupao": "16,00%", "ytm": "18,43%", "negocios": 2, "volume_total": 1451, "abertura": 94.0000, "maximo": 94.0000, "minimo": 94.0000, "cotacao_anterior": 93.9000, "cotacao_actual": 94.0000, "variacao": "0,11%"},
+    {"codigo": "OJ10O31A", "data_emissao": "2025-10-10", "data_maturidade": "2031-10-10", "cupao": "17,25%", "ytm": "17,82%", "negocios": 4, "volume_total": 6628, "abertura": 98.0000, "maximo": 98.0000, "minimo": 98.0000, "cotacao_anterior": 93.5000, "cotacao_actual": 98.0000, "variacao": "4,81%"},
+    {"codigo": "OG12F29A", "data_emissao": "2026-02-12", "data_maturidade": "2029-02-12", "cupao": "16,75%", "ytm": "18,81%", "negocios": 2, "volume_total": 11, "abertura": 112.5000, "maximo": 112.5000, "minimo": 110.0000, "cotacao_anterior": 112.5000, "cotacao_actual": 110.0000, "variacao": "-2,22%"},
+    {"codigo": "ON07A32A", "data_emissao": "2022-04-07", "data_maturidade": "2032-04-07", "cupao": "21,00%", "ytm": "18,19%", "negocios": 2, "volume_total": 11, "abertura": 112.5000, "maximo": 112.5000, "minimo": 110.0000, "cotacao_anterior": 112.5000, "cotacao_actual": 110.0000, "variacao": "-2,22%"},
+    {"codigo": "OJ08M30A", "data_emissao": "2024-03-08", "data_maturidade": "2030-03-08", "cupao": "17,00%", "ytm": "17,53%", "negocios": 3, "volume_total": 933, "abertura": 98.5000, "maximo": 98.5000, "minimo": 98.5000, "cotacao_anterior": 96.3640, "cotacao_actual": 98.5000, "variacao": "2,22%"},
+    {"codigo": "OM10G31A", "data_emissao": "2022-08-10", "data_maturidade": "2031-08-10", "cupao": "16,60%", "ytm": "17,17%", "negocios": 1, "volume_total": 5, "abertura": 98.0000, "maximo": 98.0000, "minimo": 98.0000, "cotacao_anterior": 98.0000, "cotacao_actual": 98.0000, "variacao": "0,00%"},
+    {"codigo": "OH19N27A", "data_emissao": "2023-11-19", "data_maturidade": "2027-11-19", "cupao": "17,30%", "ytm": "16,30%", "negocios": 1, "volume_total": 480, "abertura": 101.3320, "maximo": 101.3320, "minimo": 101.3320, "cotacao_anterior": 101.3300, "cotacao_actual": 101.3320, "variacao": "0,00%"},
+    {"codigo": "OJ15O30B", "data_emissao": "2024-10-15", "data_maturidade": "2030-10-15", "cupao": "17,00%", "ytm": "18,05%", "negocios": 1, "volume_total": 564, "abertura": 96.8000, "maximo": 96.8000, "minimo": 96.8000, "cotacao_anterior": 96.5000, "cotacao_actual": 96.8000, "variacao": "0,31%"},
+    {"codigo": "OI10U26A", "data_emissao": "2021-11-10", "data_maturidade": "2026-11-10", "cupao": "16,75%", "ytm": "22,84%", "negocios": 2, "volume_total": 25, "abertura": 97.0000, "maximo": 97.0000, "minimo": 97.0000, "cotacao_anterior": 100.0000, "cotacao_actual": 97.0000, "variacao": "-3,00%"},
+    {"codigo": "OF13S26A", "data_emissao": "2024-09-13", "data_maturidade": "2026-09-13", "cupao": "15,00%", "ytm": "13,90%", "negocios": 2, "volume_total": 26600, "abertura": 95.0000, "maximo": 100.4530, "minimo": 95.0000, "cotacao_anterior": 100.0000, "cotacao_actual": 100.4530, "variacao": "0,45%"}
+  ],
+  "otnr_exchange_totals": {"negocios": 41, "volume_total": 163930},
+  "otme_exchange": [],
+  "otme_exchange_nota": "Não se registaram transacções",
+  "corporate_bonds": [
+    {"codigo": "SNLEDOFB", "emitente": "SNL", "data_emissao": "2023-09-14", "data_maturidade": "2028-09-14", "cupao": "17,50%", "ytm": "17,49%", "negocios": 6, "volume_total": 1141, "abertura": 100.0000, "maximo": 100.0000, "minimo": 100.0000, "cotacao_anterior": 100.0000, "cotacao_actual": 100.0000, "variacao": "0,00%"},
+    {"codigo": "BAIODOFA", "emitente": "BAI", "data_emissao": "2026-01-28", "data_maturidade": "2031-01-28", "cupao": "20,00%", "ytm": "17,16%", "negocios": 3, "volume_total": 7, "abertura": 106.0000, "maximo": 109.0000, "minimo": 106.0000, "cotacao_anterior": 106.0000, "cotacao_actual": 109.0000, "variacao": "2,83%"}
+  ],
+  "corporate_bonds_totals": {"negocios": 9, "volume_total": 1148},
+  "stocks": [
+    {"codigo": "BAIAAAAA", "data_emissao": "2022-06-09", "negocios": 11, "volume_total": 289, "abertura": 104200.0000, "maximo": 105000.0000, "minimo": 103000.0000, "cotacao_anterior": 104200.0000, "cotacao_actual": 104900.0000, "variacao": "0,67%", "capitalizacao_bolsista": 2040305000000.0000},
+    {"codigo": "BDVAAAAA", "data_emissao": "2024-12-11", "negocios": 13, "volume_total": 60, "abertura": 68000.0000, "maximo": 70000.0000, "minimo": 68000.0000, "cotacao_anterior": 68000.0000, "cotacao_actual": 70000.0000, "variacao": "2,94%", "capitalizacao_bolsista": 42000000000.0000},
+    {"codigo": "BCGAAAAA", "data_emissao": "2022-09-29", "negocios": 17, "volume_total": 107, "abertura": 25000.0000, "maximo": 25000.0000, "minimo": 24600.0000, "cotacao_anterior": 25000.0000, "cotacao_actual": 25000.0000, "variacao": "0,00%", "capitalizacao_bolsista": 500000000000.0000},
+    {"codigo": "BFAAAAAA", "data_emissao": "2025-09-30", "negocios": 6, "volume_total": 12, "abertura": 106000.0000, "maximo": 106000.0000, "minimo": 106000.0000, "cotacao_anterior": 106000.0000, "cotacao_actual": 106000.0000, "variacao": "0,00%", "capitalizacao_bolsista": 1590000000000.0000}
+  ],
+  "stocks_totals": {"negocios": 47, "volume_total": 468, "capitalizacao_bolsista_total": 4172305000000.0000},
+  "unidades_participacao": [
+    {"codigo": "STDRUFVA", "tipologia": "UP", "data_emissao": "2024-03-15", "data_maturidade": "2027-03-15", "cupao": "0,00%", "ytm": "0,00%", "negocios": 1, "volume_total": 2, "abertura": 71500.0000, "maximo": 71500.0000, "minimo": 71500.0000, "cotacao_anterior": 72000.0000, "cotacao_actual": 71500.0000, "variacao": "-0,69%"}
+  ],
+  "otc_otnr": [
+    {"codigo": "OJ15L31B", "data_emissao": "2025-07-15", "data_maturidade": "2031-07-15", "cupao": "17,25%", "ytm": "17,52%", "negocios": 2, "volume_total": 2695055, "cotacao_anterior": 98.5000, "cotacao_actual": 99.0000, "variacao": "0,51%"}
+  ],
+  "otc_otnr_totals": {"negocios": 2, "volume_total": 2695055},
+  "otc_otme": [
+    {"codigo": "EI13L30A", "data_emissao": "2025-07-13", "data_maturidade": "2030-07-13", "cupao": "5,00%", "ytm": "5,00%", "negocios": 1, "volume_total": 8000, "cotacao_anterior": 100.0000, "cotacao_actual": 100.0000, "variacao": "0,00%"},
+    {"codigo": "EL15U33A", "data_emissao": "2025-06-15", "data_maturidade": "2033-06-15", "cupao": "7,00%", "ytm": "6,82%", "negocios": 2, "volume_total": 97, "cotacao_anterior": 100.0000, "cotacao_actual": 101.0000, "variacao": "1,00%"},
+    {"codigo": "EO15U34A", "data_emissao": "2023-01-15", "data_maturidade": "2034-01-15", "cupao": "8,00%", "ytm": "8,00%", "negocios": 1, "volume_total": 1, "cotacao_anterior": 101.0000, "cotacao_actual": 100.0000, "variacao": "-0,99%"}
+  ],
+  "otc_otme_totals": {"negocios": 4, "volume_total": 8098},
+  "repos": [
+    {"codigo_colateral": "OH15O28A", "tipologia": "OT-NR", "data_emissao": "2024-10-15", "data_maturidade": "2028-10-15", "preco": "100,00%", "valor_mercado": 1699999317.75, "quantidade": 1770814, "taxa_repo": "19,50%", "haircut": "10%", "data_registo": "2026-03-25", "data_vencimento": "2026-06-23", "num_dias": 90, "preco_compra": 1699999317.75, "preco_recompra": 1643343613.58},
+    {"codigo_colateral": "OH15S28F", "tipologia": "OT-NR", "data_emissao": "2024-09-15", "data_maturidade": "2028-09-15", "preco": "99,18%", "valor_mercado": 2822159845.39, "quantidade": 3148717, "taxa_repo": "18,75%", "haircut": "10%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-01", "num_dias": 7, "preco_compra": 2822159845.39, "preco_recompra": 2832308022.91},
+    {"codigo_colateral": "OG15L28A", "tipologia": "OT-NR", "data_emissao": "2025-07-15", "data_maturidade": "2028-07-15", "preco": "97,00%", "valor_mercado": 381896251.05, "quantidade": 424867, "taxa_repo": "19,00%", "haircut": "10%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-08", "num_dias": 14, "preco_compra": 381896251.05, "preco_recompra": 384679385.37},
+    {"codigo_colateral": "OG15L28A", "tipologia": "OT-NR", "data_emissao": "2025-07-15", "data_maturidade": "2028-07-15", "preco": "97,00%", "valor_mercado": 1037083908.50, "quantidade": 1153776, "taxa_repo": "19,00%", "haircut": "10%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-08", "num_dias": 14, "preco_compra": 1037083908.50, "preco_recompra": 1044841835.06},
+    {"codigo_colateral": "OG15L28A", "tipologia": "OT-NR", "data_emissao": "2025-07-15", "data_maturidade": "2028-07-15", "preco": "92,00%", "valor_mercado": 2000000063.41, "quantidade": 2480085, "taxa_repo": "18,75%", "haircut": "15%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-27", "num_dias": 33, "preco_compra": 2000000063.41, "preco_recompra": 2033904174.08},
+    {"codigo_colateral": "OG15L28A", "tipologia": "OT-NR", "data_emissao": "2025-07-15", "data_maturidade": "2028-07-15", "preco": "97,00%", "valor_mercado": 635709345.97, "quantidade": 707239, "taxa_repo": "19,00%", "haircut": "10%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-08", "num_dias": 14, "preco_compra": 635709345.97, "preco_recompra": 640342186.69},
+    {"codigo_colateral": "OJ10M28A", "tipologia": "OT-NR", "data_emissao": "2022-03-10", "data_maturidade": "2028-03-10", "preco": "105,73%", "valor_mercado": 6000061596.46, "quantidade": 62630, "taxa_repo": "18,75%", "haircut": "10%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-01", "num_dias": 7, "preco_compra": 6000061596.46, "preco_recompra": 6021637160.42},
+    {"codigo_colateral": "OF13S26A", "tipologia": "OT-NR", "data_emissao": "2024-09-13", "data_maturidade": "2026-09-13", "preco": "95,00%", "valor_mercado": 819999203.30, "quantidade": 1010795, "taxa_repo": "18,90%", "haircut": "15%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-22", "num_dias": 28, "preco_compra": 819999203.30, "preco_recompra": 831888068.47},
+    {"codigo_colateral": "OF13S26A", "tipologia": "OT-NR", "data_emissao": "2024-09-13", "data_maturidade": "2026-09-13", "preco": "95,00%", "valor_mercado": 599179983.64, "quantidade": 738596, "taxa_repo": "18,75%", "haircut": "15%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-27", "num_dias": 33, "preco_compra": 599179983.64, "preco_recompra": 609337315.55},
+    {"codigo_colateral": "OF13S26A", "tipologia": "OT-NR", "data_emissao": "2024-09-13", "data_maturidade": "2026-09-13", "preco": "95,00%", "valor_mercado": 83999225.86, "quantidade": 103544, "taxa_repo": "18,90%", "haircut": "15%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-22", "num_dias": 28, "preco_compra": 83999225.86, "preco_recompra": 85217099.57},
+    {"codigo_colateral": "OF13S26A", "tipologia": "OT-NR", "data_emissao": "2024-09-13", "data_maturidade": "2026-09-13", "preco": "95,00%", "valor_mercado": 1212999637.66, "quantidade": 1495238, "taxa_repo": "18,90%", "haircut": "15%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-22", "num_dias": 28, "preco_compra": 1212999637.66, "preco_recompra": 1230586470.76},
+    {"codigo_colateral": "OF13S26A", "tipologia": "OT-NR", "data_emissao": "2024-09-13", "data_maturidade": "2026-09-13", "preco": "95,00%", "valor_mercado": 1545999813.73, "quantidade": 1905720, "taxa_repo": "18,90%", "haircut": "15%", "data_registo": "2026-03-25", "data_vencimento": "2026-04-22", "num_dias": 28, "preco_compra": 1545999813.73, "preco_recompra": 1568414693.22}
+  ],
+  "repos_totals": {"valor_mercado": 18839088192.73, "quantidade": 15002021, "preco_compra": 18839088192.73, "preco_recompra": 18926300025.70},
+  "yield_curve_kz": {
+    "data_referencia": "2026-03-25",
+    "points": [
+      {"maturidade": "3M", "taxa_actual": "14,31%", "taxa_ontem": "14,38%", "variacao_pp": -0.0741, "variacao_pct": "-0,0051"},
+      {"maturidade": "6M", "taxa_actual": "15,22%", "taxa_ontem": "15,23%", "variacao_pp": -0.0032, "variacao_pct": "-0,0002"},
+      {"maturidade": "1Y", "taxa_actual": "16,89%", "taxa_ontem": "16,83%", "variacao_pp": 0.0639, "variacao_pct": "0,0038"},
+      {"maturidade": "2Y", "taxa_actual": "16,62%", "taxa_ontem": "16,60%", "variacao_pp": 0.0193, "variacao_pct": "0,0012"},
+      {"maturidade": "3Y", "taxa_actual": "17,27%", "taxa_ontem": "17,24%", "variacao_pp": 0.0282, "variacao_pct": "0,0016"},
+      {"maturidade": "4Y", "taxa_actual": "17,83%", "taxa_ontem": "17,70%", "variacao_pp": 0.1336, "variacao_pct": "0,0075"},
+      {"maturidade": "5Y", "taxa_actual": "18,27%", "taxa_ontem": "18,17%", "variacao_pp": 0.1053, "variacao_pct": "0,0058"},
+      {"maturidade": "6Y", "taxa_actual": "18,85%", "taxa_ontem": "18,78%", "variacao_pp": 0.0706, "variacao_pct": "0,0038"},
+      {"maturidade": "7Y", "taxa_actual": "19,62%", "taxa_ontem": "19,58%", "variacao_pp": 0.0391, "variacao_pct": "0,0020"},
+      {"maturidade": "8Y", "taxa_actual": "19,35%", "taxa_ontem": "19,38%", "variacao_pp": -0.0329, "variacao_pct": "-0,0017"},
+      {"maturidade": "9Y", "taxa_actual": "18,73%", "taxa_ontem": "18,83%", "variacao_pp": -0.1018, "variacao_pct": "-0,0054"},
+      {"maturidade": "10Y", "taxa_actual": "18,03%", "taxa_ontem": "18,18%", "variacao_pp": -0.1420, "variacao_pct": "-0,0078"}
+    ]
+  },
+  "yield_curve_otx": {
+    "data_referencia": "2025-10-17",
+    "points": [
+      {"maturidade": "3M", "taxa_actual": "3,18%", "taxa_ontem": "2,52%", "variacao_pp": 0.66, "variacao_pct": "26,19%"},
+      {"maturidade": "6M", "taxa_actual": "4,12%", "taxa_ontem": "4,19%", "variacao_pp": -0.07, "variacao_pct": "-1,67%"},
+      {"maturidade": "1Y", "taxa_actual": "4,68%", "taxa_ontem": "3,57%", "variacao_pp": 1.11, "variacao_pct": "31,09%"},
+      {"maturidade": "2Y", "taxa_actual": "4,59%", "taxa_ontem": "4,59%", "variacao_pp": 0.00, "variacao_pct": "0,00%"},
+      {"maturidade": "3Y", "taxa_actual": "6,24%", "taxa_ontem": "7,03%", "variacao_pp": -0.79, "variacao_pct": "-11,24%"},
+      {"maturidade": "4Y", "taxa_actual": "7,38%", "taxa_ontem": "8,25%", "variacao_pp": -0.87, "variacao_pct": "-10,55%"}
+    ]
+  },
+  "primary_market": {
+    "leilao_competitivo": {
+      "bilhetes_tesouro": "Não se registaram emissões",
+      "otnr": [
+        {"tipologia": "OT-NR", "maturidade": "3 anos", "data_maturidade": "2029-03-13", "taxa_cupao": "16,75%", "taxa_rendimento": "16,75%", "preco_subscricao": "100,0000%", "montante_ofertado": 20000000000.00, "montante_colocado": 6975000000.00},
+        {"tipologia": "OT-NR", "maturidade": "6 anos", "data_maturidade": "2031-07-15", "taxa_cupao": "17,25%", "taxa_rendimento": "17,25%", "preco_subscricao": "100,0000%", "montante_ofertado": 40000000000.00, "montante_colocado": 16275000000.00}
+      ],
+      "otnr_totais": {
+        "leilao_3_anos": {"montante_ofertado": 20000000000.00, "montante_colocado": 6975000000.00, "taxa_subscricao": "34,9%"},
+        "leilao_6_anos": {"montante_ofertado": 40000000000.00, "montante_colocado": 16275000000.00, "taxa_subscricao": "40,7%"}
+      },
+      "otme": "Não se registaram emissões"
+    },
+    "leilao_nao_competitivo": {
+      "bilhetes_tesouro": "Não se registaram emissões",
+      "otnr": "Não se registaram emissões",
+      "otme": "Não se registaram emissões"
+    }
+  },
+  "avisos_noticias": "Não há informação relevante para o mercado."
+}
