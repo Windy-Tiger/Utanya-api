@@ -185,7 +185,11 @@ def build_retrieval_sql(
 
     if query_type == "specific_date" and dates:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
-        per_date_limit = max(1, top_k // max(1, len(date_objs)))
+        # Use a higher chunk count for date-anchored queries: the final
+        # context only keeps the top 6 overall, so giving each date 4
+        # chunks (prioritizing summary + stock sections) improves the
+        # odds the specific data point (e.g. market cap) is included.
+        per_date_limit = 4
         sql = f"""
             SELECT content, metadata, title, doc_type, doc_date, similarity
             FROM (
@@ -207,9 +211,9 @@ def build_retrieval_sql(
 
     if query_type == "comparison" and dates and len(dates) >= 2:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
-        # Cap chunks per date so downstream context-truncation (top-6 overall)
-        # doesn't get filled entirely by the earliest date's chunks.
-        per_date_limit = max(1, top_k // len(date_objs))
+        # 4 chunks per date: even with 3-4 dates this stays within a
+        # reasonable context size while covering summary + stock sections.
+        per_date_limit = 4
         sql = f"""
             SELECT content, metadata, title, doc_type, doc_date, similarity
             FROM (
@@ -217,7 +221,11 @@ def build_retrieval_sql(
                        0.9 AS similarity,
                        ROW_NUMBER() OVER (
                            PARTITION BY rd.doc_date
-                           ORDER BY (rc.metadata->>'section' = 'quadro_resumo') DESC, rc.id
+                           ORDER BY
+                               (rc.metadata->>'section' = 'quadro_resumo') DESC,
+                               (rc.metadata->>'section' IN ('stocks_summary', 'stock')) DESC,
+                               (rc.metadata->>'section' = 'otnr_summary') DESC,
+                               rc.id
                        ) AS rn
                 FROM rag_chunks rc
                 JOIN rag_documents rd ON rc.document_id = rd.id

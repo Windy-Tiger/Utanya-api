@@ -350,7 +350,8 @@ async def query(
  
     context_parts = []
     sources = []
-    for i, chunk in enumerate(all_chunks[:6]):
+    context_limit = 10 if qtype in ("specific_date", "comparison") else 6
+    for i, chunk in enumerate(all_chunks[:context_limit]):
         date_str = f" ({chunk['doc_date']})" if chunk['doc_date'] else ""
         meta = chunk['metadata']
         if isinstance(meta, str):
