@@ -17,7 +17,7 @@ slightly REDUCING your existing Voyage usage.
 """
 
 import re
-from datetime import datetime
+from datetime import datetime, date
 from typing import Literal
 
 QueryType = Literal["current_state", "trend", "specific_date", "comparison"]
@@ -164,6 +164,7 @@ def build_retrieval_sql(
     """
 
     if query_type == "specific_date" and dates:
+        date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
         sql = """
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
                    0.9 AS similarity
@@ -173,9 +174,10 @@ def build_retrieval_sql(
               AND rd.doc_date = ANY($1::date[])
             ORDER BY rd.doc_date DESC
         """
-        return sql, [dates], False
+        return sql, [date_objs], False
 
     if query_type == "comparison" and dates and len(dates) >= 2:
+        date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
         sql = """
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
                    0.9 AS similarity
@@ -185,7 +187,7 @@ def build_retrieval_sql(
               AND rd.doc_date = ANY($1::date[])
             ORDER BY rd.doc_date ASC
         """
-        return sql, [dates], False
+        return sql, [date_objs], False
 
     if query_type == "current_state":
         # Similarity search restricted to the most recent N days.
