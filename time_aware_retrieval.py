@@ -49,8 +49,8 @@ _DATE_PATTERNS = [
 ]
 
 _COMPARISON_KEYWORDS = [
-    " vs ", " versus ", "comparado com", "em relação a", "em relacao a",
-    "diferença entre", "diferenca entre", "comparar"
+    " vs ", " versus ", "comparado com", "comparada com", "em relação a", "em relacao a",
+    "diferença entre", "diferenca entre", "comparar", "compare", "comparação", "comparacao"
 ]
 
 
@@ -116,10 +116,30 @@ def extract_dates(question: str, default_year: int | None = None) -> list[str]:
             y += 2000
         dates.append(f"{y:04d}-{int(mo):02d}-{int(d):02d}")
 
+    # "22 e 29 de maio" -> two dates sharing the same trailing month
+    # (must run before the single "X de mes" pattern below, and consume
+    # both numbers so the single-date pattern doesn't also match the
+    # second number on its own)
+    consumed_spans = []
+    for m in re.finditer(
+        r"\b(\d{1,2})\s+e\s+(\d{1,2})\s+de\s+(janeiro|fevereiro|março|marco|abril|maio|"
+        r"junho|julho|agosto|setembro|outubro|novembro|dezembro)\b", q
+    ):
+        d1, d2, month_name = m.groups()
+        mo = _MONTHS_PT[month_name]
+        dates.append(f"{year:04d}-{mo:02d}-{int(d1):02d}")
+        dates.append(f"{year:04d}-{mo:02d}-{int(d2):02d}")
+        consumed_spans.append(m.span())
+
+    def _in_consumed(pos):
+        return any(start <= pos < end for start, end in consumed_spans)
+
     for m in re.finditer(
         r"\b(\d{1,2})\s+de\s+(janeiro|fevereiro|março|marco|abril|maio|junho|"
         r"julho|agosto|setembro|outubro|novembro|dezembro)\b", q
     ):
+        if _in_consumed(m.start()):
+            continue
         d, month_name = m.groups()
         mo = _MONTHS_PT[month_name]
         dates.append(f"{year:04d}-{mo:02d}-{int(d):02d}")
@@ -206,10 +226,12 @@ def build_retrieval_sql(
 
     if query_type == "trend":
         # Full-range similarity search with a small recency-decay bonus.
+        # (CURRENT_DATE - rd.doc_date) is already an integer number of days
+        # in Postgres -- no EXTRACT() needed/valid here.
         sql = f"""
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
                    (1 - (rc.embedding <=> $1::vector))
-                     - (COALESCE(EXTRACT(DAY FROM (CURRENT_DATE - rd.doc_date)), 0) * 0.0005)
+                     - (COALESCE(CURRENT_DATE - rd.doc_date, 0) * 0.0005)
                      AS similarity
             FROM rag_chunks rc
             JOIN rag_documents rd ON rc.document_id = rd.id
