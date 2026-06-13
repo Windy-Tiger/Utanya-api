@@ -185,27 +185,47 @@ def build_retrieval_sql(
 
     if query_type == "specific_date" and dates:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
-        sql = """
-            SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
-                   0.9 AS similarity
-            FROM rag_chunks rc
-            JOIN rag_documents rd ON rc.document_id = rd.id
-            WHERE rd.doc_type = 'bulletin'
-              AND rd.doc_date = ANY($1::date[])
-            ORDER BY rd.doc_date DESC
+        per_date_limit = max(1, top_k // max(1, len(date_objs)))
+        sql = f"""
+            SELECT content, metadata, title, doc_type, doc_date, similarity
+            FROM (
+                SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
+                       0.9 AS similarity,
+                       ROW_NUMBER() OVER (
+                           PARTITION BY rd.doc_date
+                           ORDER BY (rc.metadata->>'section' = 'quadro_resumo') DESC, rc.id
+                       ) AS rn
+                FROM rag_chunks rc
+                JOIN rag_documents rd ON rc.document_id = rd.id
+                WHERE rd.doc_type = 'bulletin'
+                  AND rd.doc_date = ANY($1::date[])
+            ) ranked
+            WHERE rn <= {per_date_limit}
+            ORDER BY doc_date DESC
         """
         return sql, [date_objs], False
 
     if query_type == "comparison" and dates and len(dates) >= 2:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
-        sql = """
-            SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
-                   0.9 AS similarity
-            FROM rag_chunks rc
-            JOIN rag_documents rd ON rc.document_id = rd.id
-            WHERE rd.doc_type = 'bulletin'
-              AND rd.doc_date = ANY($1::date[])
-            ORDER BY rd.doc_date ASC
+        # Cap chunks per date so downstream context-truncation (top-6 overall)
+        # doesn't get filled entirely by the earliest date's chunks.
+        per_date_limit = max(1, top_k // len(date_objs))
+        sql = f"""
+            SELECT content, metadata, title, doc_type, doc_date, similarity
+            FROM (
+                SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
+                       0.9 AS similarity,
+                       ROW_NUMBER() OVER (
+                           PARTITION BY rd.doc_date
+                           ORDER BY (rc.metadata->>'section' = 'quadro_resumo') DESC, rc.id
+                       ) AS rn
+                FROM rag_chunks rc
+                JOIN rag_documents rd ON rc.document_id = rd.id
+                WHERE rd.doc_type = 'bulletin'
+                  AND rd.doc_date = ANY($1::date[])
+            ) ranked
+            WHERE rn <= {per_date_limit}
+            ORDER BY doc_date ASC
         """
         return sql, [date_objs], False
 
