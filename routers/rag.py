@@ -298,7 +298,7 @@ async def query(
     qtype = classify_query(body.question)
     dates = extract_dates(body.question) if qtype in ("specific_date", "comparison") else None
  
-    sql, extra_params, needs_embedding = build_retrieval_sql(qtype, dates)
+    sql, extra_params, needs_embedding = build_retrieval_sql(qtype, dates, question=body.question)
  
     pool = await get_pool()
     async with pool.acquire() as conn:
@@ -312,7 +312,7 @@ async def query(
         # Fallback: specific_date / comparison found nothing (date not in KB yet)
         if qtype in ("specific_date", "comparison") and not semantic_results:
             qtype = "current_state"
-            sql, extra_params, needs_embedding = build_retrieval_sql(qtype)
+            sql, extra_params, needs_embedding = build_retrieval_sql(qtype, question=body.question)
             q_embedding = vo.embed([body.question], model="voyage-3").embeddings[0]
             semantic_results = await conn.fetch(sql, str(q_embedding), *extra_params)
  
@@ -350,7 +350,7 @@ async def query(
  
     context_parts = []
     sources = []
-    context_limit = 10 if qtype in ("specific_date", "comparison") else 6
+    context_limit = 14 if qtype in ("specific_date", "comparison") else 6
     for i, chunk in enumerate(all_chunks[:context_limit]):
         date_str = f" ({chunk['doc_date']})" if chunk['doc_date'] else ""
         meta = chunk['metadata']

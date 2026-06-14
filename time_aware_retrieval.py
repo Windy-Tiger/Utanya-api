@@ -65,10 +65,28 @@ def classify_query(question: str) -> QueryType:
     for pattern in _DATE_PATTERNS:
         date_matches.extend(re.findall(pattern, q))
 
-    has_comparison_kw = any(kw in q for kw in _COMPARISON_KEYWORDS)
-    has_multiple_dates = len(date_matches) >= 2
+    # "X e Y de <month>" packs two dates the single-date pattern counts once.
+    two_days_one_month = re.search(
+        r"\b\d{1,2}\s+e\s+\d{1,2}\s+de\s+(?:janeiro|fevereiro|março|marco|abril|"
+        r"maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)\b", q
+    )
+    # "entre X e Y" framing signals a two-point comparison/evolution.
+    entre_framing = bool(re.search(r"\bentre\b.+\be\b", q))
 
-    if has_comparison_kw or has_multiple_dates:
+    has_comparison_kw = any(kw in q for kw in _COMPARISON_KEYWORDS)
+    has_multiple_dates = len(date_matches) >= 2 or two_days_one_month is not None
+
+    # "diferença entre" / "comparado com" only mean a *temporal* comparison
+    # when dates are present; otherwise they're conceptual ("diferença entre
+    # BT e OT-NR") and should fall through to current_state.
+    comparison_needs_dates = {"diferença entre", "diferenca entre",
+                              "comparado com", "comparada com",
+                              "em relação a", "em relacao a"}
+    if has_comparison_kw and not date_matches:
+        if all(kw in comparison_needs_dates for kw in _COMPARISON_KEYWORDS if kw in q):
+            has_comparison_kw = False
+
+    if has_comparison_kw or has_multiple_dates or (entre_framing and date_matches):
         return "comparison"
 
     if date_matches:
@@ -160,11 +178,95 @@ def extract_dates(question: str, default_year: int | None = None) -> list[str]:
 RECENCY_WINDOW_DAYS_DEFAULT = 14  # "last N days" window for current_state
 
 
+# ---------------------------------------------------------------------------
+# Section-intent detection: figure out which bulletin section a question
+# is about, so date-anchored retrieval can prioritize the right chunk.
+# Section names must match the metadata->>'section' values produced by
+# bulletin_json_converter.py (e.g. quadro_resumo, desempenho_membros,
+# otnr_bond, otnr_summary, yield_curve_kz, yield_curve_otx, repos,
+# corporate_bonds, stock, stocks_summary, otme_exchange, otc_otnr,
+# primary_market, eventos / eventos_distribuicao).
+# ---------------------------------------------------------------------------
+
+_SECTION_KEYWORDS = {
+    "yield_curve_kz": ["curva de rendimento", "curva kz", "yield curve",
+                       "ponto 3m", "ponto 6m", "ponto 1y", "ponto 2y",
+                       "ponto 3y", "ponto 4y", "ponto 5y", "ponto 6y",
+                       "ponto 7y", "ponto 8y", "ponto 9y", "ponto 10y",
+                       "taxa de rendimento do ponto", "estrutura de prazo"],
+    "yield_curve_otx": ["curva ot-tx", "curva otx", "ot-tx"],
+    "repos": ["reporte", "repo", "recompra", "taxa repo", "haircut", "colateral"],
+    "primary_market": ["leilão", "leilao", "mercado primário", "mercado primario",
+                       "emissão", "emissao", "subscrição", "subscricao",
+                       "montante colocado", "montante ofertado", "competitivo"],
+    "eventos": ["evento de distribuição", "evento de distribuicao", "cupão",
+                "cupao", "resgate", "maturidade", "isin", "distribuição de rendimentos",
+                "distribuicao de rendimentos"],
+    "corporate_bonds": ["obrigação corporativa", "obrigacao corporativa",
+                        "obrigações privadas", "obrigacoes privadas",
+                        "snledofb", "baiodofa", "snl", "obrigação privada"],
+    "stock": ["acção", "accao", "acções", "accoes", "capitalização", "capitalizacao",
+              "bolsista", "bai", "bfa", "bcga", "ensa", "bdva", "cotação da acção"],
+    "stocks_summary": ["total de acções", "total accoes", "mercado de acções"],
+    "desempenho_membros": ["membro", "membros", "desempenho", "negociou",
+                           "maior montante", "quota de mercado", "ranking",
+                           "número de negócios", "numero de negocios"],
+    "otme_exchange": ["ot-me", "moeda externa", "ot me"],
+    "otnr_bond": ["ot-nr", "obrigação do tesouro", "obrigacao do tesouro",
+                  "ytm", "cupão da", "variação da", "variacao da", "cotação da"],
+    "otnr_summary": ["total de ot-nr", "negócios de ot-nr", "negocios de ot-nr",
+                     "volume de ot-nr"],
+    "quadro_resumo": ["montante total", "total negociado", "total da sessão",
+                      "total da sessao", "resumo", "volume total da sessão"],
+}
+
+
+def detect_sections(question: str) -> list[str]:
+    """Return an ordered list of section names the question most likely
+    targets (most specific first). Used to prioritize chunk selection for
+    date-anchored queries. An instrument code like 'OG13M29A' strongly
+    implies otnr_bond/otme/corporate sections."""
+    q = question.lower()
+    scored = []
+    for section, kws in _SECTION_KEYWORDS.items():
+        hits = sum(1 for kw in kws if kw in q)
+        if hits:
+            scored.append((hits, section))
+    # Instrument-code pattern (e.g. OG13M29A, EL13G33A, SNLEDOFB) -> bond rows
+    if re.search(r"\b[A-Z]{2}\d{2}[A-Z]\d{2}[A-Z]\b", question) or \
+       re.search(r"\b[A-Z]{6,8}\b", question):
+        scored.append((1, "otnr_bond"))
+        scored.append((1, "corporate_bonds"))
+    scored.sort(reverse=True)
+    # De-dup preserving order
+    seen = set()
+    out = []
+    for _, s in scored:
+        if s not in seen:
+            seen.add(s)
+            out.append(s)
+    return out
+
+
+def _section_priority_sql(sections: list[str]) -> str:
+    """Build an ORDER BY fragment that floats the detected sections to the
+    top, then quadro_resumo as a sensible default, then by id."""
+    clauses = []
+    for s in sections:
+        safe = s.replace("'", "")
+        clauses.append(f"(rc.metadata->>'section' = '{safe}') DESC")
+    # Always keep quadro_resumo near the top as a fallback context anchor
+    clauses.append("(rc.metadata->>'section' = 'quadro_resumo') DESC")
+    clauses.append("rc.id")
+    return ",\n                               ".join(clauses)
+
+
 def build_retrieval_sql(
     query_type: QueryType,
     dates: list[str] | None = None,
     recency_window_days: int = RECENCY_WINDOW_DAYS_DEFAULT,
     top_k: int = 5,
+    question: str = "",
 ):
     """
     Returns (sql, params, needs_embedding).
@@ -185,11 +287,13 @@ def build_retrieval_sql(
 
     if query_type == "specific_date" and dates:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
-        # Use a higher chunk count for date-anchored queries: the final
-        # context only keeps the top 6 overall, so giving each date 4
-        # chunks (prioritizing summary + stock sections) improves the
-        # odds the specific data point (e.g. market cap) is included.
-        per_date_limit = 4
+        # Single (or few) dates: be generous. A bulletin has ~12 section
+        # types and the user may ask about any of them, so return enough
+        # chunks that the targeted section always survives. Section-intent
+        # detection floats the relevant section to the top.
+        sections = detect_sections(question)
+        order_by = _section_priority_sql(sections)
+        per_date_limit = 12
         sql = f"""
             SELECT content, metadata, title, doc_type, doc_date, similarity
             FROM (
@@ -197,7 +301,7 @@ def build_retrieval_sql(
                        0.9 AS similarity,
                        ROW_NUMBER() OVER (
                            PARTITION BY rd.doc_date
-                           ORDER BY (rc.metadata->>'section' = 'quadro_resumo') DESC, rc.id
+                           ORDER BY {order_by}
                        ) AS rn
                 FROM rag_chunks rc
                 JOIN rag_documents rd ON rc.document_id = rd.id
@@ -205,15 +309,19 @@ def build_retrieval_sql(
                   AND rd.doc_date = ANY($1::date[])
             ) ranked
             WHERE rn <= {per_date_limit}
-            ORDER BY doc_date DESC
+            ORDER BY doc_date DESC, rn ASC
         """
         return sql, [date_objs], False
 
     if query_type == "comparison" and dates and len(dates) >= 2:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
-        # 4 chunks per date: even with 3-4 dates this stays within a
-        # reasonable context size while covering summary + stock sections.
-        per_date_limit = 4
+        # Multiple dates: cap per date to keep balance, but use section
+        # detection so the compared metric (e.g. yield curve point, stock
+        # cap) is the chunk that survives for EACH date. 6 per date covers
+        # the targeted section + summary + a margin.
+        sections = detect_sections(question)
+        order_by = _section_priority_sql(sections)
+        per_date_limit = 6
         sql = f"""
             SELECT content, metadata, title, doc_type, doc_date, similarity
             FROM (
@@ -221,11 +329,7 @@ def build_retrieval_sql(
                        0.9 AS similarity,
                        ROW_NUMBER() OVER (
                            PARTITION BY rd.doc_date
-                           ORDER BY
-                               (rc.metadata->>'section' = 'quadro_resumo') DESC,
-                               (rc.metadata->>'section' IN ('stocks_summary', 'stock')) DESC,
-                               (rc.metadata->>'section' = 'otnr_summary') DESC,
-                               rc.id
+                           ORDER BY {order_by}
                        ) AS rn
                 FROM rag_chunks rc
                 JOIN rag_documents rd ON rc.document_id = rd.id
@@ -233,7 +337,7 @@ def build_retrieval_sql(
                   AND rd.doc_date = ANY($1::date[])
             ) ranked
             WHERE rn <= {per_date_limit}
-            ORDER BY doc_date ASC
+            ORDER BY doc_date ASC, rn ASC
         """
         return sql, [date_objs], False
 

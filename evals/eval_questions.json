@@ -1,0 +1,127 @@
+{
+  "_comment": "Utanya RAG evaluation set (60 questions). FIELDS: id; question (PT); query_type (expected classification: current_state|specific_date|comparison|trend); category; seo_value (high|medium|low — whether this doubles as SEO content); needs_gold (true = answer NOT yet verified, YOU must fill must_contain from your source data before this question gives a valid signal); expected (human-review note / gold answer); must_contain (strings that MUST appear for a PASS); must_not_contain (strings whose presence is an automatic FAIL — hallucination markers). The harness ignores assertion-less questions as REVIEW. Questions grounded only in bulletins 2654, 2722, 2723, 2724, 2725, the ingested legislation, and documented market facts are fully verified; all others are flagged needs_gold.",
+
+  "questions": [
+
+    { "id": "Q01", "question": "Qual foi o montante total negociado na sessão de 8 de junho de 2026?", "query_type": "specific_date", "category": "session_total", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2722: 15 888 436 377,12 AOA", "must_contain": ["15 888 436 377"], "must_not_contain": [] },
+
+    { "id": "Q02", "question": "Qual foi o montante total negociado na sessão de 9 de junho de 2026?", "query_type": "specific_date", "category": "session_total", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: 13 798 168 660,87 AOA", "must_contain": ["13 798 168 660"], "must_not_contain": [] },
+
+    { "id": "Q03", "question": "Qual foi o montante total negociado na sessão de 10 de junho de 2026?", "query_type": "specific_date", "category": "session_total", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2724: 9 253 007 317,50 AOA", "must_contain": ["9 253 007 317"], "must_not_contain": [] },
+
+    { "id": "Q04", "question": "Qual foi o montante total negociado na sessão de 11 de junho de 2026?", "query_type": "specific_date", "category": "session_total", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2725: 4 558 204 962,60 AOA", "must_contain": ["4 558 204 962"], "must_not_contain": [] },
+
+    { "id": "Q05", "question": "Qual foi o YTM da OG13M29A no boletim de 11 de junho de 2026?", "query_type": "specific_date", "category": "bond_lookup", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2725, OG13M29A em bolsa: YTM 18,87%", "must_contain": ["18,87", "OG13M29A"], "must_not_contain": [] },
+
+    { "id": "Q06", "question": "Qual foi o YTM da OG13M29A no boletim de 9 de junho de 2026?", "query_type": "specific_date", "category": "bond_lookup", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723, OG13M29A em bolsa: YTM 18,87%", "must_contain": ["18,87"], "must_not_contain": [] },
+
+    { "id": "Q07", "question": "Compare a capitalização bolsista do BFA em 22 e 29 de maio de 2026.", "query_type": "comparison", "category": "comparison", "seo_value": "low", "needs_gold": false, "expected": "BFA: 22/05 (2711)=1 590 000 000 000 AOA; 29/05 (2716)=1 597 500 000 000 AOA; +0,47%", "must_contain": ["1 590 000 000 000", "1 597 500 000 000"], "must_not_contain": [] },
+
+    { "id": "Q08", "question": "Qual membro teve o maior montante negociado em 8 de junho de 2026?", "query_type": "specific_date", "category": "member_ranking", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2722: HCPS, 13 580 734 439,83 AOA (74,701%)", "must_contain": ["HCPS"], "must_not_contain": [] },
+
+    { "id": "Q09", "question": "Qual membro teve o maior montante negociado em 11 de junho de 2026?", "query_type": "specific_date", "category": "member_ranking", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2725: AUREA, 2 422 331 358,10 AOA (26,951%)", "must_contain": ["AUREA"], "must_not_contain": [] },
+
+    { "id": "Q10", "question": "Quantos negócios de OT-NR foram realizados em bolsa no boletim de 9 de junho de 2026?", "query_type": "specific_date", "category": "bond_summary", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: 92 negócios, volume 560 494", "must_contain": ["92"], "must_not_contain": [] },
+
+    { "id": "Q11", "question": "Qual foi a taxa de rendimento do ponto 7Y da curva de rendimentos Kz em 8 de junho de 2026?", "query_type": "specific_date", "category": "yield_curve", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2722, curva Kz 7Y: 19,23%", "must_contain": ["19,23"], "must_not_contain": [] },
+
+    { "id": "Q12", "question": "Qual foi a taxa de rendimento do ponto 3M da curva Kz em 11 de junho de 2026?", "query_type": "specific_date", "category": "yield_curve", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2725, curva Kz 3M: 13,81%", "must_contain": ["13,81"], "must_not_contain": [] },
+
+    { "id": "Q13", "question": "Como evoluiu o ponto 7Y da curva Kz entre 8 e 9 de junho de 2026?", "query_type": "comparison", "category": "yield_curve_trend", "seo_value": "low", "needs_gold": false, "expected": "7Y: 8/06 (2722)=19,23%; 9/06 (2723)=19,21%; ligeira descida", "must_contain": ["19,23", "19,21"], "must_not_contain": [] },
+
+    { "id": "Q14", "question": "Como evoluiu o ponto 3M da curva Kz entre 8 e 11 de junho de 2026?", "query_type": "comparison", "category": "yield_curve_trend", "seo_value": "low", "needs_gold": false, "expected": "3M: 8/06 (2722)=13,77%; 11/06 (2725)=13,81%; ligeira subida", "must_contain": ["13,77", "13,81"], "must_not_contain": [] },
+
+    { "id": "Q15", "question": "Qual foi o resultado do leilão competitivo de OT-NR no boletim de 9 de junho de 2026?", "query_type": "specific_date", "category": "primary_market", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: OT-NR 4 anos (15-mar-30) 16,75% colocado 5.000.000.000; OT-NR 6 anos (15-jul-31) 17,25% colocado 3.000.000.000", "must_contain": ["16,75", "17,25"], "must_not_contain": [] },
+
+    { "id": "Q16", "question": "Qual foi o montante colocado no leilão de OT-ME no boletim de 10 de junho de 2026?", "query_type": "specific_date", "category": "primary_market", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2724: OT-ME 3 anos (10-jun-29) cupão 4%, colocado 5.415.000 USD de 7.000.000 ofertado", "must_contain": ["5 415 000", "USD"], "must_not_contain": [] },
+
+    { "id": "Q17", "question": "Houve transacções de Bilhetes do Tesouro em bolsa no boletim de 8 de junho de 2026?", "query_type": "specific_date", "category": "negative_check", "seo_value": "low", "needs_gold": false, "expected": "Não. Boletim 2722: 'Não se registaram transacções' de BT", "must_contain": ["não"], "must_not_contain": [] },
+
+    { "id": "Q18", "question": "Qual foi a operação de reporte registada no boletim de 8 de junho de 2026?", "query_type": "specific_date", "category": "repos", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2722: colateral OJ10M28A, valor de mercado 13 016 344 328,83 AOA, taxa repo 13%, 87 dias", "must_contain": ["13 016 344 328"], "must_not_contain": [] },
+
+    { "id": "Q19", "question": "Quais eventos de distribuição de rendimentos ocorreram no boletim de 9 de junho de 2026?", "query_type": "specific_date", "category": "corporate_actions", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: UGD — BE09U26A (Resgate), EH09U26A (Cupão/Maturidade), EI09D26A (Cupão), EK09U29A (Cupão)", "must_contain": ["BE09U26A"], "must_not_contain": [] },
+
+    { "id": "Q20", "question": "Qual foi a variação percentual da OL07A30A no boletim de 8 de junho de 2026?", "query_type": "specific_date", "category": "bond_lookup", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2722: OL07A30A variação -3,70%", "must_contain": ["3,70"], "must_not_contain": [] },
+
+    { "id": "Q21", "question": "Qual foi o YTM da obrigação corporativa SNLEDOFB no boletim de 8 de junho de 2026?", "query_type": "specific_date", "category": "corporate_bonds", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2722: SNLEDOFB (SNL) YTM 16,90%, cotação 101,0000", "must_contain": ["16,90"], "must_not_contain": [] },
+
+    { "id": "Q22", "question": "Qual é o valor nominal unitário das OT-NR?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "Kz 1.000 por unidade (alterado de Kz 100.000 pelo Decreto 2/24, jan 2024). NOTA: pode falhar se o Decreto 2/24 não estiver ingerido.", "must_contain": ["1.000"], "must_not_contain": ["100.000"] },
+
+    { "id": "Q23", "question": "Qual é o tratamento fiscal de IAC das OT-NR negociadas na BODIVA com maturidade igual ou superior a 3 anos?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "Isentas de IAC", "must_contain": ["isent"], "must_not_contain": [] },
+
+    { "id": "Q24", "question": "Qual é a taxa de IAC sobre o desconto dos Bilhetes do Tesouro?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "15% sobre o desconto", "must_contain": ["15"], "must_not_contain": [] },
+
+    { "id": "Q25", "question": "Qual é a taxa de IAC sobre os juros de depósitos bancários?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "15% sobre os juros. NOTA: pode precisar de fonte fiscal ingerida.", "must_contain": ["15"], "must_not_contain": [] },
+
+    { "id": "Q26", "question": "Quantas acções diferentes estão listadas na BODIVA?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "5: BAI, BFA, BCGA, ENSA, BODIVA", "must_contain": ["5"], "must_not_contain": [] },
+
+    { "id": "Q27", "question": "O que é o IAC no contexto dos investimentos em Angola?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "Imposto sobre a Aplicação de Capitais — imposto retido na fonte sobre rendimentos de capitais (15% em geral); OT-NR ≥3 anos na BODIVA isentas.", "must_contain": ["capitais"], "must_not_contain": [] },
+
+    { "id": "Q28", "question": "Qual é a diferença entre Bilhetes do Tesouro e Obrigações do Tesouro Não Reajustáveis?", "query_type": "current_state", "category": "instruments", "seo_value": "high", "needs_gold": false, "expected": "BT: instrumentos de desconto, curto prazo (<1 ano, 91/182/364 dias). OT-NR: obrigações de cupão fixo, prazo mais longo, cupões semestrais, valor nominal Kz 1.000.", "must_contain": ["desconto"], "must_not_contain": [] },
+
+    { "id": "Q29", "question": "O que são as OT-ME?", "query_type": "current_state", "category": "instruments", "seo_value": "high", "needs_gold": false, "expected": "Obrigações do Tesouro em Moeda Externa — indexadas a USD, cupão ~ inferior ao das OT-NR (ex.: 4-8%).", "must_contain": ["moeda externa"], "must_not_contain": [] },
+
+    { "id": "Q30", "question": "O que é uma operação de reporte (repo) na BODIVA?", "query_type": "current_state", "category": "instruments", "seo_value": "high", "needs_gold": false, "expected": "Venda de um título com acordo de recompra futura a preço acordado; financiamento de curto prazo com colateral (taxa repo, haircut, prazo em dias).", "must_contain": ["recompra"], "must_not_contain": [] },
+
+    { "id": "Q31", "question": "O que é uma SCVM?", "query_type": "current_state", "category": "legislation", "seo_value": "high", "needs_gold": false, "expected": "Sociedade Corretora de Valores Mobiliários — intermediário licenciado para operar na BODIVA. Regida pelo DLP 5/13.", "must_contain": ["corretora"], "must_not_contain": [] },
+
+    { "id": "Q32", "question": "O que diz a Lei 22/15 sobre a definição de agentes de intermediação?", "query_type": "current_state", "category": "legislation", "seo_value": "high", "needs_gold": false, "expected": "Resposta deve citar a Lei 22/15 (Código dos Valores Mobiliários) e descrever agentes de intermediação.", "must_contain": ["22/15"], "must_not_contain": [] },
+
+    { "id": "Q33", "question": "Como é fixado o capital social mínimo das SCVM?", "query_type": "current_state", "category": "legislation", "seo_value": "medium", "needs_gold": false, "expected": "A CMC fixa por regulamento (DLP 5/13, Art. 5).", "must_contain": ["CMC"], "must_not_contain": [] },
+
+    { "id": "Q34", "question": "Quais são as actividades proibidas a um correspondente segundo o Artigo 82 do Regulamento 2/25?", "query_type": "current_state", "category": "legislation", "seo_value": "medium", "needs_gold": false, "expected": "Regulamento 2/25, Art. 82 — lista das actividades vedadas ao correspondente. Verificar resposta contra o documento ingerido.", "must_contain": ["82"], "must_not_contain": [] },
+
+    { "id": "Q35", "question": "Qual é a cotação da OG13M29A em 1 de janeiro de 2026?", "query_type": "specific_date", "category": "out_of_range", "seo_value": "low", "needs_gold": false, "expected": "Não disponível — a base começa em 2 de março de 2026 (boletim 2654). Deve indicar honestamente que não tem o dado.", "must_contain": ["não"], "must_not_contain": [] },
+
+    { "id": "Q36", "question": "Qual foi o montante total negociado em 2 de março de 2026?", "query_type": "specific_date", "category": "session_total", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2654: 24 283 611 628,43 AOA", "must_contain": ["24 283 611 628"], "must_not_contain": [] },
+
+    { "id": "Q37", "question": "Qual foi a taxa de rendimento do ponto 3M da curva Kz em 2 de março de 2026?", "query_type": "specific_date", "category": "yield_curve", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2654, curva Kz 3M: 14,62%", "must_contain": ["14,62"], "must_not_contain": [] },
+
+    { "id": "Q38", "question": "Como evoluiu o ponto 3M da curva Kz entre 2 de março e 11 de junho de 2026?", "query_type": "comparison", "category": "yield_curve_trend", "seo_value": "medium", "needs_gold": false, "expected": "3M: 02/03 (2654)=14,62%; 11/06 (2725)=13,81%; descida ao longo do período", "must_contain": ["14,62", "13,81"], "must_not_contain": [] },
+
+    { "id": "Q39", "question": "Qual era o cupão da OOO1134A no boletim de 8 de junho de 2026?", "query_type": "specific_date", "category": "bond_lookup", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2722: OOO1134A cupão 23,00%", "must_contain": ["23"], "must_not_contain": [] },
+
+    { "id": "Q40", "question": "Qual foi o número total de negócios de todos os membros em 9 de junho de 2026?", "query_type": "specific_date", "category": "member_ranking", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: total de 330 negócios", "must_contain": ["330"], "must_not_contain": [] },
+
+    { "id": "Q41", "question": "Houve operações de reporte no boletim de 11 de junho de 2026?", "query_type": "specific_date", "category": "negative_check", "seo_value": "low", "needs_gold": false, "expected": "Não. Boletim 2725: mercado de operações de reporte = 0,00 AOA / sem transacções", "must_contain": ["não"], "must_not_contain": [] },
+
+    { "id": "Q42", "question": "Qual foi o YTM da BAIODOFA no boletim de 9 de junho de 2026?", "query_type": "specific_date", "category": "corporate_bonds", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: BAIODOFA (BAI) YTM 15,34%, cotação 115,0000", "must_contain": ["15,34"], "must_not_contain": [] },
+
+    { "id": "Q43", "question": "Como se calcula o rendimento líquido de um Bilhete do Tesouro após o IAC?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "Rendimento bruto (desconto) menos 15% de IAC sobre esse desconto. Resposta conceptual aceitável.", "must_contain": ["15"], "must_not_contain": [] },
+
+    { "id": "Q44", "question": "Porque é que as OT-NR de longo prazo podem ser fiscalmente mais vantajosas que um depósito bancário?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "OT-NR na BODIVA ≥3 anos são isentas de IAC, enquanto os juros de depósitos sofrem 15% de IAC.", "must_contain": ["isent"], "must_not_contain": [] },
+
+    { "id": "Q45", "question": "O que é a BODIVA e quando foi fundada?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "Bolsa de Dívida e Valores de Angola, fundada em 2014.", "must_contain": ["2014"], "must_not_contain": [] },
+
+    { "id": "Q46", "question": "Quem é o regulador do mercado de capitais em Angola?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "A CMC — Comissão do Mercado de Capitais.", "must_contain": ["CMC"], "must_not_contain": [] },
+
+    { "id": "Q47", "question": "Qual foi a variação percentual das acções do ENSA no boletim de 9 de junho de 2026?", "query_type": "specific_date", "category": "stock_lookup", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: ENSAAAAA variação +1,47% (34 000 -> 34 500)", "must_contain": ["1,47"], "must_not_contain": [] },
+
+    { "id": "Q48", "question": "Qual foi o membro com maior montante negociado em 10 de junho de 2026?", "query_type": "specific_date", "category": "member_ranking", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2724: VALOR, 6 970 580 931,66 AOA (50,904%)", "must_contain": ["VALOR"], "must_not_contain": [] },
+
+    { "id": "Q49", "question": "Como evoluiu o montante total negociado entre 8 e 11 de junho de 2026?", "query_type": "trend", "category": "session_trend", "seo_value": "low", "needs_gold": false, "expected": "08/06=15,89bn; 09/06=13,80bn; 10/06=9,25bn; 11/06=4,56bn AOA — tendência descendente ao longo da semana", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q50", "question": "Qual foi a taxa repo da operação de reporte no boletim de 9 de junho de 2026?", "query_type": "specific_date", "category": "repos", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2723: operações com taxa repo 11,80% e 11,90% (verificar colaterais OL07A30A e OH15M30A)", "must_contain": ["11,8"], "must_not_contain": [] },
+
+    { "id": "Q51", "question": "Qual foi o YTM do ponto 1Y da curva Kz em 10 de junho de 2026?", "query_type": "specific_date", "category": "yield_curve", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2724, curva Kz 1Y: 16,55%", "must_contain": ["16,55"], "must_not_contain": [] },
+
+    { "id": "Q52", "question": "Qual foi o montante total negociado em 5 de maio de 2026?", "query_type": "specific_date", "category": "session_total", "seo_value": "low", "needs_gold": true, "expected": "PREENCHER: abrir boletim_2698_20260505.json e copiar o total_geral / total da sessão.", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q53", "question": "Qual foi o ponto 7Y da curva Kz em 15 de maio de 2026?", "query_type": "specific_date", "category": "yield_curve", "seo_value": "low", "needs_gold": true, "expected": "PREENCHER: boletim 2706 (2026-05-15), curva Kz, ponto 7Y.", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q54", "question": "Qual membro liderou o montante negociado em 1 de abril de 2026?", "query_type": "specific_date", "category": "member_ranking", "seo_value": "low", "needs_gold": true, "expected": "PREENCHER: boletim 2676 (2026-04-01), membro com maior montante.", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q55", "question": "Houve emissões no mercado primário em 15 de abril de 2026?", "query_type": "specific_date", "category": "primary_market", "seo_value": "low", "needs_gold": true, "expected": "PREENCHER: boletim 2685 (2026-04-15), secção mercado primário.", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q56", "question": "Qual foi a cotação actual do BAI em 20 de maio de 2026?", "query_type": "specific_date", "category": "stock_lookup", "seo_value": "low", "needs_gold": true, "expected": "PREENCHER: boletim 2709 (2026-05-20), BAIAAAAA cotação actual.", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q57", "question": "Como evoluiu o ponto 7Y da curva Kz ao longo de maio de 2026?", "query_type": "trend", "category": "yield_curve_trend", "seo_value": "medium", "needs_gold": true, "expected": "PREENCHER: comparar ponto 7Y em vários boletins de maio (ex.: 2698, 2706, 2711, 2716). Pergunta de tendência — avaliar manualmente.", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q58", "question": "Qual foi o instrumento OT-NR mais transaccionado (por volume) no boletim de 11 de junho de 2026?", "query_type": "specific_date", "category": "analysis", "seo_value": "low", "needs_gold": false, "expected": "Boletim 2725: OG13M29A com volume 2 223 104 (o maior da sessão). Testa capacidade de ordenar por volume — pode falhar antes da Fase 3.", "must_contain": ["OG13M29A"], "must_not_contain": [] },
+
+    { "id": "Q59", "question": "Qual OT-NR tinha o YTM mais elevado no boletim de 11 de junho de 2026?", "query_type": "current_state", "category": "analysis", "seo_value": "medium", "needs_gold": false, "expected": "Requer ordenar YTMs do boletim 2725. Pergunta de análise — provavelmente falha antes da Fase 3 (camada de analytics). Avaliar manualmente.", "must_contain": [], "must_not_contain": [] },
+
+    { "id": "Q60", "question": "Qual é a diferença entre o mercado de bolsa e o mercado de balcão organizado (MBO) na BODIVA?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "Mercado de Bolsa: negociação multilateral em bolsa. Mercado de Balcão Organizado: registo de operações bilaterais/OTC. Resposta conceptual aceitável.", "must_contain": ["balcão"], "must_not_contain": [] }
+
+  ]
+}
