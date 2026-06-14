@@ -324,7 +324,7 @@ async def query(
                 if latest['content'][:100] not in existing:
                     semantic_results = [latest] + list(semantic_results)
  
-       keyword_results = await conn.fetch("""
+      keyword_results = await conn.fetch("""
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
                    ts_rank(to_tsvector('portuguese', rc.content),
                            plainto_tsquery('portuguese', $1)) AS kw_rank
@@ -335,38 +335,30 @@ async def query(
             ORDER BY kw_rank DESC
             LIMIT 20
         """, body.question)
- 
- # --- Reciprocal Rank Fusion (RRF) of semantic + keyword results ---
-    # For date-anchored queries the semantic_results are already the
-    # authoritative date-filtered set; we still fuse keyword hits but keep
-    # the date results dominant by giving them a strong base rank.
-    RRF_K = 60  # standard constant; dampens the influence of low ranks
- 
+
+    # --- Reciprocal Rank Fusion (RRF) of semantic + keyword results ---
+    RRF_K = 60
+
     def _key(row):
         return row['content'][:120]
- 
+
     rrf_scores = {}
     row_by_key = {}
- 
-    # Semantic list contributes by its order (best first)
+
     for rank, row in enumerate(list(semantic_results)):
         k = _key(row)
         row_by_key[k] = row
         rrf_scores[k] = rrf_scores.get(k, 0.0) + 1.0 / (RRF_K + rank)
- 
-    # Keyword list contributes by its order (best first)
+
     for rank, row in enumerate(list(keyword_results)):
         k = _key(row)
-        # Keep the row we already have (semantic rows carry a real
-        # similarity score); only store keyword row if new.
         if k not in row_by_key:
             row_by_key[k] = row
         rrf_scores[k] = rrf_scores.get(k, 0.0) + 1.0 / (RRF_K + rank)
- 
-    # Order by fused score, highest first
+
     all_chunks = [row_by_key[k] for k, _ in
                   sorted(rrf_scores.items(), key=lambda kv: kv[1], reverse=True)]
- 
+
     if not all_chunks:
         return {
             "answer": "Nao tenho informacao suficiente na base de conhecimento para responder.",
