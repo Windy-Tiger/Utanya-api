@@ -324,23 +324,48 @@ async def query(
                 if latest['content'][:100] not in existing:
                     semantic_results = [latest] + list(semantic_results)
  
-        keyword_results = await conn.fetch("""
+       keyword_results = await conn.fetch("""
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
-                   0.5 AS similarity
+                   ts_rank(to_tsvector('portuguese', rc.content),
+                           plainto_tsquery('portuguese', $1)) AS kw_rank
             FROM rag_chunks rc
             JOIN rag_documents rd ON rc.document_id = rd.id
             WHERE to_tsvector('portuguese', rc.content)
                   @@ plainto_tsquery('portuguese', $1)
-            LIMIT 3
+            ORDER BY kw_rank DESC
+            LIMIT 20
         """, body.question)
  
-    seen = set()
-    all_chunks = []
-    for row in list(semantic_results) + list(keyword_results):
-        key = row['content'][:100]
-        if key not in seen:
-            seen.add(key)
-            all_chunks.append(row)
+ # --- Reciprocal Rank Fusion (RRF) of semantic + keyword results ---
+    # For date-anchored queries the semantic_results are already the
+    # authoritative date-filtered set; we still fuse keyword hits but keep
+    # the date results dominant by giving them a strong base rank.
+    RRF_K = 60  # standard constant; dampens the influence of low ranks
+ 
+    def _key(row):
+        return row['content'][:120]
+ 
+    rrf_scores = {}
+    row_by_key = {}
+ 
+    # Semantic list contributes by its order (best first)
+    for rank, row in enumerate(list(semantic_results)):
+        k = _key(row)
+        row_by_key[k] = row
+        rrf_scores[k] = rrf_scores.get(k, 0.0) + 1.0 / (RRF_K + rank)
+ 
+    # Keyword list contributes by its order (best first)
+    for rank, row in enumerate(list(keyword_results)):
+        k = _key(row)
+        # Keep the row we already have (semantic rows carry a real
+        # similarity score); only store keyword row if new.
+        if k not in row_by_key:
+            row_by_key[k] = row
+        rrf_scores[k] = rrf_scores.get(k, 0.0) + 1.0 / (RRF_K + rank)
+ 
+    # Order by fused score, highest first
+    all_chunks = [row_by_key[k] for k, _ in
+                  sorted(rrf_scores.items(), key=lambda kv: kv[1], reverse=True)]
  
     if not all_chunks:
         return {
@@ -350,7 +375,7 @@ async def query(
  
     context_parts = []
     sources = []
-    context_limit = 14 if qtype in ("specific_date", "comparison") else 6
+      context_limit = 14 if qtype in ("specific_date", "comparison") else 10
     for i, chunk in enumerate(all_chunks[:context_limit]):
         date_str = f" ({chunk['doc_date']})" if chunk['doc_date'] else ""
         meta = chunk['metadata']
@@ -367,7 +392,7 @@ async def query(
             "doc_type": chunk['doc_type'],
             "date": str(chunk['doc_date']) if chunk['doc_date'] else None,
             "section": section,
-            "similarity": float(chunk['similarity'])
+            "similarity": float(chunk['similarity']) if 'similarity' in chunk and chunk['similarity'] is not None else None
         })
  
     context = "\n\n---\n\n".join(context_parts)
