@@ -30,7 +30,8 @@ Rules you must follow without exception:
    direct the user to their SCVM intermediary.
 6. If asked about current prices or yields, note the date of your latest bulletin.
 7. Always respond in the same language the question was asked in.
-8. When quoting numbers, always state the source document and date."""
+8. When quoting numbers, always state the source document and date.
+9. NUMBER FORMAT: In all provided data the comma (,) is the DECIMAL separator and the dot (.) or space is the THOUSANDS separator (Portuguese/Angolan convention). So "15,07%" means about 15.07 percent — NEVER 1507%. "1.000" means one thousand. "2 100 600 000 000,00" is about 2.1 trillion. When citing any value, preserve its exact magnitude and never confuse the decimal comma with a thousands separator."""
 
 
 # --- AUTH ---
