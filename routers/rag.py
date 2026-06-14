@@ -379,7 +379,6 @@ response = ac.messages.create(
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": f"Context:\n\n{context}\n\n---\n\nQuestion: {body.question}"}]
     )
- 
     return {"answer": response.content[0].text, "sources": sources, "query_type": qtype}
 # --- LIST DOCUMENTS ---
 
