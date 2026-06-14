@@ -59,8 +59,59 @@ def normalize(text: str) -> str:
     return t
 
 
-def contains(haystack_norm: str, needle: str) -> bool:
-    return normalize(needle) in haystack_norm
+def _extract_numbers(text: str) -> set:
+    """Extract numeric values from text as normalized float-strings, so
+    16,90 / 16.9 / 16.90 all become the same token '16.9'. Handles
+    Portuguese decimal commas and thousands separators."""
+    vals = set()
+    # Match number-like tokens: digits with optional separators
+    for m in re.finditer(r"\d[\d .,]*\d|\d", text):
+        raw = m.group(0).strip()
+        # Decide decimal separator: if both . and , present, the LAST one is decimal.
+        # If only commas, treat a single trailing ",dd" as decimal, else thousands.
+        cleaned = raw.replace(" ", "")
+        if "," in cleaned and "." in cleaned:
+            # last separator is the decimal one
+            if cleaned.rfind(",") > cleaned.rfind("."):
+                cleaned = cleaned.replace(".", "").replace(",", ".")
+            else:
+                cleaned = cleaned.replace(",", "")
+        elif "," in cleaned:
+            # treat comma as decimal if it looks like one (1-2 digits after)
+            parts = cleaned.split(",")
+            if len(parts) == 2 and len(parts[1]) <= 2:
+                cleaned = parts[0] + "." + parts[1]
+            else:
+                cleaned = cleaned.replace(",", "")
+        # dots only: assume thousands unless single trailing .dd
+        elif cleaned.count(".") == 1:
+            a, b = cleaned.split(".")
+            if len(b) > 2:  # thousands like 1.000
+                cleaned = a + b
+        else:
+            cleaned = cleaned.replace(".", "")
+        try:
+            f = float(cleaned)
+            # store with up to 4 decimals, trailing zeros stripped
+            vals.add(("%g" % f))
+        except ValueError:
+            continue
+    return vals
+
+
+def contains(haystack_norm: str, needle: str, haystack_raw: str = "") -> bool:
+    """Match needle in haystack. If the needle is numeric, also try a
+    value-based comparison so 16,90 == 16.9 == 16.90."""
+    # 1. Plain normalized substring (handles text + most numbers)
+    if normalize(needle) in haystack_norm:
+        return True
+    # 2. Numeric value match (handles decimal comma vs point, trailing zeros)
+    needle_nums = _extract_numbers(needle)
+    if needle_nums and haystack_raw:
+        hay_nums = _extract_numbers(haystack_raw)
+        if needle_nums & hay_nums:
+            return True
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -94,13 +145,21 @@ def score_question(item: dict, api_response: dict) -> dict:
     returned_qtype = api_response.get("query_type")
 
     must = item.get("must_contain", []) or []
+    must_any = item.get("must_contain_any", []) or []
     must_not = item.get("must_not_contain", []) or []
     expected_qtype = item.get("query_type")
     needs_gold = item.get("needs_gold", False)
 
-    hits = [m for m in must if contains(answer_norm, m)]
-    misses = [m for m in must if not contains(answer_norm, m)]
-    violations = [m for m in must_not if contains(answer_norm, m)]
+    hits = [m for m in must if contains(answer_norm, m, answer)]
+    misses = [m for m in must if not contains(answer_norm, m, answer)]
+    violations = [m for m in must_not if contains(answer_norm, m, answer)]
+
+    # must_contain_any: at least one of the listed strings must be present
+    any_ok = True
+    any_hit = None
+    if must_any:
+        any_hit = next((m for m in must_any if contains(answer_norm, m, answer)), None)
+        any_ok = any_hit is not None
 
     qtype_ok = (expected_qtype is None) or (returned_qtype == expected_qtype)
 
@@ -110,12 +169,14 @@ def score_question(item: dict, api_response: dict) -> dict:
         verdict = "NEEDS_GOLD"
     elif violations:
         verdict = "FAIL"  # hallucination / wrong value present — always fail
-    elif not must:
+    elif not must and not must_any:
         # No assertions defined (e.g. open analysis question) -> manual review
         verdict = "REVIEW"
-    elif len(hits) == len(must) and qtype_ok:
+    elif len(hits) == len(must) and any_ok and qtype_ok:
         verdict = "PASS"
-    elif len(hits) == 0:
+    elif must_any and not any_ok:
+        verdict = "FAIL"  # required at least one alternative, got none
+    elif len(hits) == 0 and not must_any:
         verdict = "FAIL"
     else:
         verdict = "PARTIAL"

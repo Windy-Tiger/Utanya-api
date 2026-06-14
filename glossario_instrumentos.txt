@@ -1,0 +1,56 @@
+GLOSSÁRIO DE INSTRUMENTOS E ESTRUTURA DO MERCADO BODIVA
+Documento de referência Utanya. Fontes: Código do IAC (DLP 2/14), Decreto Presidencial 2/24, Decreto Legislativo Presidencial 5/13, Lei 22/15 (Código dos Valores Mobiliários), e informação institucional da BODIVA.
+
+
+BILHETES DO TESOURO (BT)
+Resumo: Os Bilhetes do Tesouro (BT) são títulos de dívida pública de curto prazo emitidos pelo Estado angolano com desconto, sem cupão.
+
+Os Bilhetes do Tesouro são instrumentos de dívida de curto prazo (tipicamente com maturidades de 91, 182 ou 364 dias) emitidos pelo Tesouro Nacional. São colocados no mercado a desconto: o investidor compra o título por um valor inferior ao seu valor nominal (de reembolso) e, no vencimento, recebe o valor nominal integral. A diferença entre o preço de compra e o valor de reembolso constitui o rendimento (juro implícito), não havendo pagamento de cupões periódicos. Por terem prazo curto, os BT são utilizados na gestão de liquidez de curto prazo. Em termos fiscais, os rendimentos dos Bilhetes do Tesouro estão sujeitos a Imposto sobre a Aplicação de Capitais (IAC) ao abrigo da Secção B do respectivo Código, à taxa geral de 10%, podendo beneficiar da taxa reduzida de 5% quando admitidos à negociação em mercado regulamentado e com maturidade igual ou superior a 3 anos (o que, na prática, é raro para BT por serem de curto prazo).
+
+
+OBRIGAÇÕES DO TESOURO NÃO REAJUSTÁVEIS (OT-NR)
+Resumo: As Obrigações do Tesouro Não Reajustáveis (OT-NR) são títulos de dívida pública de médio e longo prazo, em kwanzas, com cupão fixo e valor nominal não reajustável de Kz 1.000 por unidade.
+
+As OT-NR são obrigações emitidas pelo Tesouro Nacional em moeda nacional (kwanzas) cujo valor nominal não é reajustado ao longo da vida do título. Cada unidade tem um valor nominal de Kz 1.000,00 (mil kwanzas), valor que foi alterado pelo Decreto Presidencial n.º 2/24, de 4 de Janeiro de 2024, que reduziu o valor nominal unitário das Obrigações do Tesouro de Kz 100.000,00 para Kz 1.000,00, com o objectivo de tornar os títulos mais acessíveis aos investidores de retalho. As OT-NR pagam um cupão (juro) a uma taxa fixa, predefinida em função da maturidade na data de emissão, com pagamento semestral dos juros, calculados numa base de capitalização simples. Por serem "não reajustáveis", nem o capital nem o cupão são indexados à inflação ou ao câmbio. As maturidades situam-se tipicamente entre 2 e 15 anos. Fiscalmente, os juros das OT-NR estão sujeitos a IAC pela Secção B (taxa geral de 10%), beneficiando da taxa reduzida de 5% quando os títulos estão admitidos à negociação em mercado regulamentado (como a BODIVA) e a emissão apresenta maturidade igual ou superior a 3 anos. As mais-valias na alienação destes títulos em mercado regulamentado, com maturidade igual ou superior a 3 anos, relevam apenas em 50% do seu valor para efeitos de tributação.
+
+
+OBRIGAÇÕES DO TESOURO EM MOEDA EXTERNA (OT-ME)
+Resumo: As Obrigações do Tesouro em Moeda Externa (OT-ME) são títulos de dívida pública indexados a moeda estrangeira (tipicamente o dólar dos Estados Unidos, USD).
+
+As OT-ME são obrigações emitidas pelo Tesouro Nacional cujo valor e/ou remuneração estão associados a uma moeda externa, geralmente o dólar norte-americano (USD). Servem para oferecer aos investidores protecção contra a desvalorização do kwanza, uma vez que o valor de referência acompanha a moeda externa. Tipicamente apresentam taxas de cupão inferiores às das OT-NR em kwanzas (frequentemente na ordem dos 4% a 8%), precisamente porque incorporam menor risco cambial para o investidor. Tal como as restantes obrigações do Tesouro, os rendimentos das OT-ME estão sujeitos a IAC pela Secção B, com a possibilidade de taxa reduzida de 5% quando admitidas a mercado regulamentado e com maturidade igual ou superior a 3 anos.
+
+
+OPERAÇÃO DE REPORTE (REPO)
+Resumo: Uma operação de reporte (repo) é uma venda de títulos com acordo simultâneo de recompra numa data futura a um preço previamente acordado, funcionando como um empréstimo de curto prazo garantido por colateral.
+
+Numa operação de reporte (repo), uma parte vende títulos a outra e compromete-se a recomprá-los numa data futura a um preço acordado. Na prática, funciona como um financiamento de curto prazo: o vendedor obtém liquidez imediata e os títulos servem de colateral (garantia); o comprador recebe os títulos e, no final, devolve-os contra o pagamento do preço de recompra, obtendo um rendimento equivalente à taxa de reporte (taxa repo). Os elementos típicos de uma operação de reporte são: o título dado em colateral, o valor de mercado do colateral, a quantidade, a taxa de reporte (taxa repo), o haircut (margem de segurança aplicada ao valor do colateral) e o número de dias até ao vencimento da operação. Os repos são instrumentos centrais na gestão de liquidez do sistema financeiro e são registados nos boletins da BODIVA quando ocorrem.
+
+
+SOCIEDADE CORRETORA DE VALORES MOBILIÁRIOS (SCVM)
+Resumo: Uma SCVM é uma sociedade financeira licenciada para exercer a intermediação de valores mobiliários, sendo o intermediário através do qual os investidores acedem ao mercado da BODIVA.
+
+As Sociedades Corretoras de Valores Mobiliários (SCVM) são intermediários financeiros autorizados a executar ordens de compra e venda de valores mobiliários por conta dos seus clientes, bem como, consoante a sua autorização, a negociar por conta própria e a prestar serviços conexos. O seu regime jurídico consta do Decreto Legislativo Presidencial n.º 5/13, que regula as Sociedades Corretoras (SCVM) e as Sociedades Distribuidoras de Valores Mobiliários (SDVM). Um investidor individual não acede directamente à BODIVA: realiza as suas operações através de uma SCVM (ou de um banco autorizado a prestar serviços de intermediação). O capital social mínimo e os requisitos de idoneidade e organização das SCVM são fixados por regulamentação da entidade reguladora, a Comissão do Mercado de Capitais (CMC). As SCVM distinguem-se das SDVM essencialmente pelo âmbito das operações que podem realizar.
+
+
+COMISSÃO DO MERCADO DE CAPITAIS (CMC)
+Resumo: A Comissão do Mercado de Capitais (CMC) é a autoridade reguladora e supervisora do mercado de valores mobiliários e instrumentos derivados em Angola.
+
+A Comissão do Mercado de Capitais (CMC) é o organismo público responsável pela regulação, supervisão e fiscalização do mercado de capitais angolano, incluindo os mercados geridos pela BODIVA. Compete à CMC, entre outras funções, autorizar e supervisionar os intermediários (como as SCVM e SDVM), aprovar regulamentos do mercado, fixar requisitos como o capital social mínimo dos intermediários, e zelar pela protecção dos investidores e pela integridade e transparência do mercado. A CMC é a entidade reguladora de referência citada na legislação do mercado de capitais, nomeadamente na Lei n.º 22/15 (Código dos Valores Mobiliários) e no Decreto Legislativo Presidencial n.º 5/13.
+
+
+BODIVA — BOLSA DE DÍVIDA E VALORES DE ANGOLA
+Resumo: A BODIVA é a entidade gestora dos mercados regulamentados de valores mobiliários e derivados em Angola, fundada em Julho de 2014.
+
+A Bolsa de Dívida e Valores de Angola (BODIVA) foi fundada em Julho de 2014 para promover o mercado de valores mobiliários nacional. Foi precedida pela constituição da Bolsa de Derivados de Angola, S.A. (BVDA) em 2006, através do Decreto 9/05, de 18 de Março, no contexto da publicação da Lei de Valores Mobiliários (Lei 12/05, de 23 de Setembro). O objecto social da BODIVA consiste na gestão dos mercados regulamentados — o Mercado de Bolsa e o Mercado de Balcão Organizado (MBO) — podendo ainda exercer actividades conexas, como a prestação de serviços relacionados com a emissão e negociação de valores mobiliários, a gestão de sistemas de compensação e liquidação, e a gestão do sistema centralizado de valores mobiliários. A regulação e supervisão do mercado cabe à Comissão do Mercado de Capitais (CMC).
+
+
+MERCADO DE BOLSA vs MERCADO DE BALCÃO ORGANIZADO (MBO)
+Resumo: O Mercado de Bolsa é o mercado de negociação multilateral centralizado; o Mercado de Balcão Organizado (MBO) é o mercado onde se registam operações negociadas bilateralmente.
+
+A BODIVA gere dois tipos de mercado regulamentado. O Mercado de Bolsa caracteriza-se pela negociação multilateral e centralizada, em que as ordens de compra e venda de vários participantes concorrem entre si num ambiente regulado. O Mercado de Balcão Organizado (MBO) destina-se ao registo de operações negociadas de forma bilateral (directamente entre duas partes, "over-the-counter"), conferindo-lhes o enquadramento e a transparência de um mercado regulamentado. Nos boletins da BODIVA, as transacções em bolsa (ambiente multilateral) são distinguidas das operações registadas em mercado de balcão.
+
+
+ACÇÕES COTADAS NA BODIVA
+Resumo: Estão cotadas na BODIVA cinco acções, correspondentes a cinco emitentes do sector financeiro e segurador.
+
+À data, encontram-se admitidas à negociação na BODIVA as acções de cinco emitentes: o Banco Angolano de Investimentos (BAI, código de negociação BAIAAAAA), o Banco de Fomento Angola (BFA, código BFAAAAAA), o Banco Caixa Geral Angola (BCGA, código BCGAAAAA), a ENSA Seguros de Angola (ENSA, código ENSAAAAA) e a própria BODIVA (código BDVAAAAA). As acções conferem aos seus titulares direitos patrimoniais (como o direito a dividendos e à partilha do património em caso de liquidação) e direitos societários (como o direito de participar e votar na Assembleia Geral). Os rendimentos das acções (dividendos e mais-valias) estão sujeitos a Imposto sobre a Aplicação de Capitais (IAC).
