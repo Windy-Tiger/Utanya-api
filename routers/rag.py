@@ -372,7 +372,7 @@ async def query(
  
     context = "\n\n---\n\n".join(context_parts)
  
-response = ac.messages.create(
+    response = ac.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=1000,
         temperature=0,
