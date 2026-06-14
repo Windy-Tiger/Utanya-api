@@ -47,7 +47,7 @@
 
     { "id": "Q22", "question": "Qual é o valor nominal unitário das OT-NR?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "Kz 1.000 por unidade (alterado de Kz 100.000 pelo Decreto 2/24, jan 2024). NOTA: pode falhar se o Decreto 2/24 não estiver ingerido.", "must_contain": ["1.000"], "must_not_contain": ["100.000"] },
 
-    { "id": "Q23", "question": "Qual é o tratamento fiscal de IAC das OT-NR negociadas na BODIVA com maturidade igual ou superior a 3 anos?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "Isentas de IAC", "must_contain": ["isent"], "must_not_contain": [] },
+    { "id": "Q23", "question": "Qual é o tratamento fiscal de IAC dos juros das obrigações com maturidade igual ou superior a 3 anos admitidas a mercado regulamentado na BODIVA?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "Isenção de 50% do IAC sobre os juros de obrigações com maturidade ≥3 anos admitidas a mercado regulamentado (NÃO é isenção total). Mais-valias de obrigações não cotadas: 10%.", "must_contain": ["50"], "must_not_contain": [] },
 
     { "id": "Q24", "question": "Qual é a taxa de IAC sobre o desconto dos Bilhetes do Tesouro?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "15% sobre o desconto", "must_contain": ["15"], "must_not_contain": [] },
 
@@ -89,9 +89,9 @@
 
     { "id": "Q43", "question": "Como se calcula o rendimento líquido de um Bilhete do Tesouro após o IAC?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "Rendimento bruto (desconto) menos 15% de IAC sobre esse desconto. Resposta conceptual aceitável.", "must_contain": ["15"], "must_not_contain": [] },
 
-    { "id": "Q44", "question": "Porque é que as OT-NR de longo prazo podem ser fiscalmente mais vantajosas que um depósito bancário?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "OT-NR na BODIVA ≥3 anos são isentas de IAC, enquanto os juros de depósitos sofrem 15% de IAC.", "must_contain": ["isent"], "must_not_contain": [] },
+    { "id": "Q44", "question": "Porque é que as obrigações de longo prazo na BODIVA podem ser fiscalmente mais vantajosas que um depósito bancário?", "query_type": "current_state", "category": "tax", "seo_value": "high", "needs_gold": false, "expected": "Obrigações ≥3 anos admitidas a mercado regulamentado beneficiam de isenção de 50% do IAC sobre os juros, enquanto os juros de depósitos são tributados a 15% (Secção A) — logo a carga fiscal efectiva é menor.", "must_contain": ["50"], "must_not_contain": [] },
 
-    { "id": "Q45", "question": "O que é a BODIVA e quando foi fundada?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "Bolsa de Dívida e Valores de Angola, fundada em 2014.", "must_contain": ["2014"], "must_not_contain": [] },
+    { "id": "Q45", "question": "O que é a BODIVA e quando foi fundada?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "Bolsa de Dívida e Valores de Angola, fundada em Julho de 2014 (precedida pela constituição da BVDA em 2006).", "must_contain": ["2014"], "must_not_contain": [] },
 
     { "id": "Q46", "question": "Quem é o regulador do mercado de capitais em Angola?", "query_type": "current_state", "category": "market_knowledge", "seo_value": "high", "needs_gold": false, "expected": "A CMC — Comissão do Mercado de Capitais.", "must_contain": ["CMC"], "must_not_contain": [] },
 

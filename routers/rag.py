@@ -414,34 +414,77 @@ async def delete_document(doc_id: int, api_key: str = Security(verify_api_key)):
 
 def chunk_text(text: str, base_metadata: dict = {}, chunk_size: int = 800) -> list:
     import re
-    article_pattern = re.compile(r'(Art(?:igo)?\.?\s*\d+\.?)', re.IGNORECASE)
-    articles = article_pattern.split(text)
-
+ 
+    # --- Normalize line endings FIRST (fixes the \r\n vs \n\n bug) ---
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+ 
     chunks = []
-    if len(articles) > 3:
-        i = 1
-        while i < len(articles) - 1:
-            header = articles[i]
-            body = articles[i + 1] if i + 1 < len(articles) else ""
-            content = (header + body).strip()
-            if len(content) > 50:
-                chunks.append({"content": content[:1500], "metadata": {**base_metadata, "article": header.strip()}})
-            i += 2
-    else:
-        paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+ 
+    def pack_paragraphs(blob, meta):
+        """Greedily pack paragraphs into ~chunk_size pieces. Never drops text:
+        a single oversized paragraph is hard-split into chunk_size windows."""
+        out = []
+        paragraphs = [p.strip() for p in blob.split("\n\n") if p.strip()]
+        # If there were no blank-line breaks at all, fall back to single-newline
+        if len(paragraphs) <= 1:
+            paragraphs = [p.strip() for p in blob.split("\n") if p.strip()]
         current = ""
         for para in paragraphs:
-            if len(current) + len(para) < chunk_size:
-                current += "\n\n" + para
+            # Hard-split any paragraph longer than chunk_size so nothing is lost
+            while len(para) > chunk_size:
+                if current.strip():
+                    out.append(current.strip())
+                    current = ""
+                out.append(para[:chunk_size])
+                para = para[chunk_size:]
+            if len(current) + len(para) + 2 < chunk_size:
+                current += ("\n\n" + para) if current else para
             else:
                 if current.strip():
-                    chunks.append({"content": current.strip(), "metadata": base_metadata})
+                    out.append(current.strip())
                 current = para
         if current.strip():
-            chunks.append({"content": current.strip(), "metadata": base_metadata})
-
+            out.append(current.strip())
+        return [{"content": c, "metadata": meta} for c in out]
+ 
+    # --- Article-aware path for legislation that really has "Artigo N" ---
+    article_pattern = re.compile(r'(Art(?:igo)?\.?\s*\d+\.?\s*\xba?)', re.IGNORECASE)
+    parts = article_pattern.split(text)
+ 
+    if len(parts) > 3:
+        # parts[0] is any preamble BEFORE the first article -> keep it!
+        preamble = parts[0].strip()
+        if len(preamble) > 50:
+            chunks.extend(pack_paragraphs(preamble, base_metadata))
+ 
+        # Then walk header/body pairs (parts[1]=header, parts[2]=body, ...)
+        i = 1
+        while i < len(parts):
+            header = parts[i].strip() if i < len(parts) else ""
+            body = parts[i + 1] if i + 1 < len(parts) else ""
+            content = (header + " " + body).strip()
+            if len(content) > 50:
+                meta = {**base_metadata, "article": header}
+                # Pack long articles into multiple chunks instead of truncating
+                if len(content) > chunk_size:
+                    for c in pack_paragraphs(content, meta):
+                        chunks.append(c)
+                else:
+                    chunks.append({"content": content, "metadata": meta})
+            i += 2
+    else:
+        # --- Plain prose path (AGT text, BODIVA historia, reports) ---
+        chunks = pack_paragraphs(text, base_metadata)
+ 
+    # Final safety net: never return nothing, but also never return ONE giant
+    # chunk for a long doc -- if we somehow got 1 chunk for >chunk_size text,
+    # force a re-pack.
+    if not chunks:
+        chunks = pack_paragraphs(text, base_metadata)
+    if len(chunks) == 1 and len(text) > chunk_size * 1.5:
+        chunks = pack_paragraphs(text, base_metadata)
+ 
     return chunks if chunks else [{"content": text[:1500], "metadata": base_metadata}]
-
 
 # REPLACE the store_document_and_chunks function at the bottom of routers/rag.py
 # with this updated version that batches embeddings
