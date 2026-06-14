@@ -324,7 +324,7 @@ async def query(
                 if latest['content'][:100] not in existing:
                     semantic_results = [latest] + list(semantic_results)
  
-      keyword_results = await conn.fetch("""
+        keyword_results = await conn.fetch("""
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
                    ts_rank(to_tsvector('portuguese', rc.content),
                            plainto_tsquery('portuguese', $1)) AS kw_rank
@@ -367,7 +367,7 @@ async def query(
  
     context_parts = []
     sources = []
-      context_limit = 14 if qtype in ("specific_date", "comparison") else 10
+    context_limit = 14 if qtype in ("specific_date", "comparison") else 10
     for i, chunk in enumerate(all_chunks[:context_limit]):
         date_str = f" ({chunk['doc_date']})" if chunk['doc_date'] else ""
         meta = chunk['metadata']
