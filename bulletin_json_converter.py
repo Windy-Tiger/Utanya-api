@@ -326,31 +326,47 @@ Operacoes:
             "metadata": {"section": "repos", "bulletin": num, "date": date}
         })
 
-    # ---------- Yield Curve Kz ('points' OR 'pontos') ----------
+    # ---------- Yield Curve Kz (list OR dict-with-points/pontos) ----------
     yc_kz_data = bulletin_data.get("yield_curve_kz", {})
-    yc_kz = _first(yc_kz_data, "points", "pontos", default=[]) if isinstance(yc_kz_data, dict) else []
+    if isinstance(yc_kz_data, list):
+        yc_kz = yc_kz_data
+        yc_kz_ref = ""
+    elif isinstance(yc_kz_data, dict):
+        yc_kz = _first(yc_kz_data, "points", "pontos", default=[])
+        yc_kz_ref = yc_kz_data.get("data_referencia", "N/A")
+    else:
+        yc_kz = []
+        yc_kz_ref = ""
     if yc_kz:
         lines = [
-            f"{p.get('maturidade','?')}: {_first(p,'tx_rend_actual','yield','?')}% "
-            f"(ontem: {_first(p,'tx_rend_ontem','yield_ontem','?')}%)"
+            f"{p.get('maturidade','?')}: {_first(p,'tx_rend_actual','taxa_actual','yield',default='?')}% "
+            f"(ontem: {_first(p,'tx_rend_ontem','taxa_ontem','yield_ontem',default='?')}%)"
             for p in yc_kz
         ]
         chunks.append({
             "content": f"""BODIVA Boletim {num} - {date}
-CURVA DE RENDIMENTOS KWANZA (AOA) - Data Referencia: {yc_kz_data.get('data_referencia', 'N/A')}
+CURVA DE RENDIMENTOS KWANZA (AOA) - Data Referencia: {yc_kz_ref}
 
 """ + "\n".join(lines),
             "metadata": {"section": "yield_curve_kz", "bulletin": num, "date": date}
         })
 
-    # ---------- Yield Curve OT-TX ----------
+    # ---------- Yield Curve OT-TX (list OR dict-with-points/pontos) ----------
     yc_otx_data = bulletin_data.get("yield_curve_otx", {})
-    yc_otx = _first(yc_otx_data, "points", "pontos", default=[]) if isinstance(yc_otx_data, dict) else []
+    if isinstance(yc_otx_data, list):
+        yc_otx = yc_otx_data
+        yc_otx_ref = ""
+    elif isinstance(yc_otx_data, dict):
+        yc_otx = _first(yc_otx_data, "points", "pontos", default=[])
+        yc_otx_ref = yc_otx_data.get("data_referencia", "N/A")
+    else:
+        yc_otx = []
+        yc_otx_ref = ""
     if yc_otx:
-        lines = [f"{p.get('maturidade','?')}: {_first(p,'tx_rend_actual','yield','?')}%" for p in yc_otx]
+        lines = [f"{p.get('maturidade','?')}: {_first(p,'tx_rend_actual','taxa_actual','yield',default='?')}%" for p in yc_otx]
         chunks.append({
             "content": f"""BODIVA Boletim {num} - {date}
-CURVA DE RENDIMENTOS OT-TX (USD-indexada) - Data Referencia: {yc_otx_data.get('data_referencia', 'N/A')}
+CURVA DE RENDIMENTOS OT-TX (USD-indexada) - Data Referencia: {yc_otx_ref}
 
 """ + "\n".join(lines),
             "metadata": {"section": "yield_curve_otx", "bulletin": num, "date": date}
