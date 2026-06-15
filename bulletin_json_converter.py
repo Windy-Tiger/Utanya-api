@@ -73,7 +73,7 @@ def json_to_chunks(bulletin_data: dict) -> list:
         "content": f"""BODIVA Boletim {num} - {date}
 QUADRO RESUMO DA SESSAO
 
-Total Geral Negociado: AOA {_money(total_geral)}
+Total Geral da Sessao (montante total negociado no mercado, volume oficial de negociacao): AOA {_money(total_geral)}
 
 Mercado de Titulos do Tesouro: AOA {_money(mt_total)}
   Ambiente Multilateral (Bolsa): AOA {_money(multi.get('total', 0) if isinstance(multi,dict) else 0)}
@@ -118,7 +118,7 @@ Mercado de Operacoes de Reporte (Repo): AOA {_money(_sec_total(repo_ss))}""",
             "content": f"""BODIVA Boletim {num} - {date}
 DESEMPENHO DOS MEMBROS DE NEGOCIACAO
 
-Total do Mercado: AOA {_money(tot_mont)} | {tot_neg} negocios
+Soma dos montantes por membro (inclui ambas as pontas de cada negocio; NAO e o montante total da sessao): AOA {_money(tot_mont)} | {tot_neg} registos de membros
 
 """ + "\n".join(lines),
             "metadata": {"section": "desempenho_membros", "bulletin": num, "date": date}
