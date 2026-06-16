@@ -26,6 +26,16 @@ def _int(v):
         return str(v) if v is not None else "0"
 
 
+def _num(v):
+    """Coerce to a number for summing; None/invalid -> 0."""
+    try:
+        if v is None:
+            return 0
+        return float(v)
+    except (TypeError, ValueError):
+        return 0
+
+
 def _pct(v):
     """Percentage/rate -> readable string. Number gets % appended; string verbatim."""
     if v is None:
@@ -56,7 +66,7 @@ def json_to_chunks(bulletin_data: dict) -> list:
     mt = _first(ss, "mercado_titulos_tesouro", "mercado_bolsa_titulos_tesouro", default={})
     multi = _first(mt, "ambiente_multilateral", default={}) if isinstance(mt, dict) else {}
     bilat = _first(mt, "ambiente_bilateral", default={}) if isinstance(mt, dict) else {}
-    total_geral = _first(ss, "total_geral", "total_sessao_aoa", default=0)
+    total_geral = _first(ss, "total_geral", "total_sessao_aoa", "total", default=0)
     obr_priv = _first(ss, "mercado_obrigacoes_privadas", "mercado_bolsa_obrigacoes_privadas", default={})
     unip = _first(ss, "mercado_unidades_participacao", "mercado_bolsa_unidades_participacao", default={})
     acoes = _first(ss, "mercado_accoes", "mercado_bolsa_accoes", default={})
@@ -116,9 +126,9 @@ Mercado de Operacoes de Reporte (Repo): AOA {_money(_sec_total(repo_ss))}""",
         tot_neg = mp_total.get("negocios", 0) if isinstance(mp_total, dict) else 0
         # Fallback: compute from members if total fields are missing/zero
         if not tot_neg:
-            tot_neg = sum(m.get("negocios", 0) for m in members if isinstance(m, dict))
+            tot_neg = sum(_num(m.get("negocios")) for m in members if isinstance(m, dict))
         if not tot_mont:
-            tot_mont = sum(_first(m, "montante_negociado", "montante_aoa", default=0) for m in members if isinstance(m, dict))
+            tot_mont = sum(_num(_first(m, "montante_negociado", "montante_aoa", default=0)) for m in members if isinstance(m, dict))
         chunks.append({
             "content": f"""BODIVA Boletim {num} - {date}
 DESEMPENHO DOS MEMBROS DE NEGOCIACAO
@@ -167,9 +177,9 @@ Variacao: {b.get('variacao_pct', 'N/A')}%"""
         tot_neg = _first(otnr_total, "negocios_realizados", "negocios", default=0)
         tot_vol = _first(otnr_total, "volume_total", default=0)
         if not tot_neg:
-            tot_neg = sum(_first(b, "negocios_realizados", "negocios", default=0) for b in bonds)
+            tot_neg = sum(_num(_first(b, "negocios_realizados", "negocios", default=0)) for b in bonds)
         if not tot_vol:
-            tot_vol = sum(_first(b, "volume_total", "volume", default=0) for b in bonds)
+            tot_vol = sum(_num(_first(b, "volume_total", "volume", default=0)) for b in bonds)
         chunks.append({
             "content": f"""BODIVA Boletim {num} - {date}
 OT-NR MERCADO DE BOLSA - RESUMO ({len(bonds)} instrumentos)
@@ -212,8 +222,8 @@ Total: {tot_neg} negocios | {_int(tot_vol)} unidades
         corp = corp.get("bonds", [])
     corp_total = bulletin_data.get("corporate_bonds_total", {}) or {}
     if corp:
-        tot_neg = _first(corp_total, "negocios_realizados", "negocios", default=sum(_first(b,'negocios_realizados','negocios',default=0) for b in corp))
-        tot_vol = _first(corp_total, "volume_total", default=sum(_first(b,'volume_total','volume',default=0) for b in corp))
+        tot_neg = _first(corp_total, "negocios_realizados", "negocios", default=sum(_num(_first(b,'negocios_realizados','negocios',default=0)) for b in corp))
+        tot_vol = _first(corp_total, "volume_total", default=sum(_num(_first(b,'volume_total','volume',default=0)) for b in corp))
         chunks.append({
             "content": f"""BODIVA Boletim {num} - {date}
 MERCADO DE OBRIGACOES PRIVADAS (Corporate Bonds)
@@ -240,11 +250,11 @@ Total: {tot_neg} negocios | {_int(tot_vol)} unidades
         tot_vol = _first(stocks_total, "volume_total", default=0)
         tot_cap = _first(stocks_total, "capitalizacao_bolsista_total", "capitalizacao_total", default=0)
         if not tot_neg:
-            tot_neg = sum(_first(c, "negocios_realizados", "negocios", default=0) for c in stocks)
+            tot_neg = sum(_num(_first(c, "negocios_realizados", "negocios", default=0)) for c in stocks)
         if not tot_vol:
-            tot_vol = sum(_first(c, "volume_total", "volume", default=0) for c in stocks)
+            tot_vol = sum(_num(_first(c, "volume_total", "volume", default=0)) for c in stocks)
         if not tot_cap:
-            tot_cap = sum(c.get("capitalizacao_bolsista", 0) for c in stocks if isinstance(c, dict))
+            tot_cap = sum(_num(c.get("capitalizacao_bolsista")) for c in stocks if isinstance(c, dict))
         chunks.append({
             "content": f"""BODIVA Boletim {num} - {date}
 MERCADO DE ACCOES - RESUMO DA SESSAO
@@ -290,9 +300,9 @@ Capitalizacao Bolsista: AOA {_money(c.get('capitalizacao_bolsista', 0))}""",
         tot_neg = _first(otc_total, "negocios_realizados", "negocios", default=0)
         tot_vol = _first(otc_total, "volume_total", default=0)
         if not tot_neg:
-            tot_neg = sum(_first(b, "negocios_realizados", "negocios", default=0) for b in otc)
+            tot_neg = sum(_num(_first(b, "negocios_realizados", "negocios", default=0)) for b in otc)
         if not tot_vol:
-            tot_vol = sum(_first(b, "volume_total", "volume", default=0) for b in otc)
+            tot_vol = sum(_num(_first(b, "volume_total", "volume", default=0)) for b in otc)
         chunks.append({
             "content": f"""BODIVA Boletim {num} - {date}
 MERCADO DE BALCAO ORGANIZADO - OT-NR (OTC)

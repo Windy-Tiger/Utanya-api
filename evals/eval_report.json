@@ -20,7 +20,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, o montante total negociado na sessão foi de **AOA 15.888.436.377,12** (aproximadamente 15,9 mil milhões de Kwanzas).\n\nFonte: BODIVA Boletim 2722 - 2026-06-08, Quadro Resumo da Sessão.",
+      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, o montante total negociado na sessão foi de **AOA 15.888.436.377,12** (quinze mil milhões, oitocentos e oitenta e oito milhões, quatrocentos e trinta e seis mil, trezentos e setenta e sete angolas e doze cêntimos).\n\n**Fonte:** BODIVA Boletim 2722 - 2026-06-08, Quadro Resumo da Sessão",
       "expected": "Boletim 2722: 15 888 436 377,12 AOA",
       "needs_gold": false
     },
@@ -37,7 +37,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2723 de 9 de junho de 2026**, o montante total negociado na sessão foi de **AOA 13.798.168.660,87** (aproximadamente 13,8 bilhões de Kwanzas angolanos).\n\nFonte: BODIVA Boletim 2723 - 2026-06-09, Quadro Resumo da Sessão.",
+      "answer": "De acordo com o **BODIVA Boletim 2723 de 9 de junho de 2026**, o montante total negociado na sessão foi de **AOA 13.798.168.660,87** (aproximadamente 13,8 bilhões de Kwanzas angolanos).\n\n**Fonte:** BODIVA Boletim 2723 - 2026-06-09, Quadro Resumo da Sessão",
       "expected": "Boletim 2723: 13 798 168 660,87 AOA",
       "needs_gold": false
     },
@@ -90,7 +90,7 @@
         "18,87"
       ],
       "violations": [],
-      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nO boletim BODIVA 2725 de 11 de junho de 2026 que possuo contém dados sobre 12 obrigações do tesouro (OT-NR), mas a obrigação OG13M29A não está incluída neste boletim. Os títulos presentes no boletim são: OI10L27A, OK05A29B, OL10D30A, ON30J33A, OOO1134A, OJ05G29D, OH15L28B, OJ15O30B, OI08I30A, OL15M32A, OJ15L31A e OJ15L31B.\n\nPara obter informações sobre a OG13M29A, recomendo consultar diretamente o seu intermediário SCVM ou aceder a boletins BODIVA anteriores ou posteriores.",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nO boletim BODIVA 2725 de 11 de junho de 2026 que possuo contém dados sobre 12 obrigações do tesouro (OT-NR), mas a obrigação OG13M29A não está incluída neste boletim. As obrigações listadas são: OI10L27A, OK05A29B, OL10D30A, ON30J33A, OOO1134A, OJ05G29D, OH15L28B, OJ15O30B, OI08I30A, OL15M32A, OJ15L31A e OJ15L31B.\n\nPara obter informações sobre a OG13M29A, você precisaria consultar um boletim diferente ou contactar directamente a BODIVA.",
       "expected": "Boletim 2725, OG13M29A em bolsa: YTM 18,87%",
       "needs_gold": false
     },
@@ -125,7 +125,7 @@
         "1 597 500 000 000"
       ],
       "violations": [],
-      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos disponíveis contêm dados de boletins BODIVA a partir de **1 de junho de 2026** (BODIVA Boletim 2717). Não existem registos para as datas de 22 e 29 de maio de 2026 nos documentos fornecidos.\n\nPara obter informações sobre a capitalização bolsista do BFA nessas datas específicas, recomendo consultar:\n- Boletins BODIVA anteriores ao período disponível\n- Seu intermediário SCVM\n- O histórico completo de cotações na plataforma BODIVA",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos que possuo cobrem apenas o período de **3 a 11 de junho de 2026** (BODIVA Boletins 2719 a 2725). Nao contem dados sobre as datas de **22 e 29 de maio de 2026** que solicitou.\n\nPara obter informacoes sobre a capitalizacao bolsista do BFA nessas datas, recomendo consultar:\n- Os boletins BODIVA anteriores (anteriores ao Boletim 2719)\n- O seu intermediario SCVM\n- O site oficial da BODIVA",
       "expected": "BFA: 22/05 (2711)=1 590 000 000 000 AOA; 29/05 (2716)=1 597 500 000 000 AOA; +0,47%",
       "needs_gold": false
     },
@@ -159,7 +159,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2725 - 2026-06-11**, o membro com o maior montante negociado foi a **AUREA**, com **AOA 2.422.331.358,10** (aproximadamente 2,42 bilhões de AOA), representando **26,951%** da quota de negociação nessa sessão.\n\nFonte: BODIVA Boletim 2725 - 2026-06-11, seção \"Desempenho dos Membros de Negociação\"",
+      "answer": "De acordo com o **BODIVA Boletim 2725 - 2026-06-11**, o membro com o maior montante negociado foi a **AUREA**, com **AOA 2.422.331.358,10** (representando 26,951% da quota de negociação).\n\nFonte: BODIVA Boletim 2725 - 2026-06-11, seção \"Desempenho dos Membros de Negociação\"",
       "expected": "Boletim 2725: AUREA, 2 422 331 358,10 AOA (26,951%)",
       "needs_gold": false
     },
@@ -167,16 +167,16 @@
       "id": "Q10",
       "category": "bond_summary",
       "question": "Quantos negócios de OT-NR foram realizados em bolsa no boletim de 9 de junho de 2026?",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "expected_qtype": "specific_date",
       "returned_qtype": "specific_date",
       "qtype_ok": true,
-      "hits": [],
-      "misses": [
+      "hits": [
         "92"
       ],
+      "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2723 - 2026-06-09**, o resumo do mercado de bolsa para OT-NR indica:\n\n**Total: 0 negócios**\n\nConforme consta na seção \"OT-NR MERCADO DE BOLSA - RESUMO (28 instrumentos)\" do boletim, não houve negócios realizados no mercado de bolsa nessa data, apesar de haver 28 instrumentos listados com cotações e volumes.",
+      "answer": "De acordo com o **BODIVA Boletim 2723 - 2026-06-09**, foram realizados **92 negócios** de OT-NR (Obrigações do Tesouro Não Reajustável) em bolsa, com um volume total de 657.699 unidades.\n\n*Fonte: BODIVA Boletim 2723 - 2026-06-09, OT-NR MERCADO DE BOLSA - RESUMO*",
       "expected": "Boletim 2723: 92 negócios, volume 560 494",
       "needs_gold": false
     },
@@ -193,7 +193,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2722 - 2026-06-08**, a taxa de rendimento do ponto 7Y da curva de rendimentos Kwanza (AOA) em 8 de junho de 2026 foi de **19,23%** (em comparação com 19,24% no dia anterior).\n\nFonte: BODIVA Boletim 2722 - 2026-06-08, seção \"CURVA DE RENDIMENTOS KWANZA (AOA)\"",
+      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, a taxa de rendimento do ponto 7Y (7 anos) da curva de rendimentos em Kwanza (AOA) foi de **19,23%** (comparado a 19,24% no dia anterior).\n\nFonte: BODIVA Boletim 2722 - 2026-06-08, seção \"CURVA DE RENDIMENTOS KWANZA (AOA)\"",
       "expected": "Boletim 2722, curva Kz 7Y: 19,23%",
       "needs_gold": false
     },
@@ -210,7 +210,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2725 de 11 de junho de 2026**, a taxa de rendimento do ponto 3M (3 meses) da curva de rendimentos em Kwanza (AOA) foi de **13,81%**.\n\nFonte: BODIVA Boletim 2725 - 2026-06-11, seção \"Curva de Rendimentos Kwanza (AOA)\"",
+      "answer": "De acordo com o **BODIVA Boletim 2725 de 11 de junho de 2026**, a taxa de rendimento do ponto 3M (3 meses) da curva de rendimentos em Kwanza (AOA) foi de **13,81%**.\n\nFonte: BODIVA Boletim 2725 - 2026-06-11, seção \"CURVA DE RENDIMENTOS KWANZA (AOA)\"",
       "expected": "Boletim 2725, curva Kz 3M: 13,81%",
       "needs_gold": false
     },
@@ -228,7 +228,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com os boletins BODIVA, o ponto 7Y da curva de rendimentos em Kwanza (AOA) evoluiu da seguinte forma:\n\n**8 de junho de 2026 (Boletim 2722):** 19,23%\n\n**9 de junho de 2026 (Boletim 2723):** 19,21%\n\n**Variação:** Queda de 0,02 pontos percentuais (de 19,23% para 19,21%)\n\nFonte: \n- BODIVA Boletim 2722 - 2026-06-08, Curva de Rendimentos Kwanza\n- BODIVA Boletim 2723 - 2026-06-09, Curva de Rendimentos Kwanza",
+      "answer": "De acordo com os boletins BODIVA, a evolução do ponto 7Y da curva de rendimentos em Kwanza (AOA) entre 8 e 9 de junho de 2026 foi a seguinte:\n\n- **8 de junho de 2026**: 19,23% ([BODIVA Boletim 2722 - 2026-06-08](source))\n- **9 de junho de 2026**: 19,21% ([BODIVA Boletim 2723 - 2026-06-09](source))\n\n**Variação**: Redução de 0,02 pontos percentuais (de 19,23% para 19,21%)\n\nIsto representa uma ligeira queda no rendimento do segmento de 7 anos da curva de rendimentos em Kwanza neste período.",
       "expected": "7Y: 8/06 (2722)=19,23%; 9/06 (2723)=19,21%; ligeira descida",
       "needs_gold": false
     },
@@ -246,7 +246,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com os boletins BODIVA, o ponto 3M da curva de rendimentos em Kwanza (AOA) evoluiu da seguinte forma:\n\n- **8 de junho de 2026**: 13,77% ([BODIVA Boletim 2722 - 2026-06-08](source))\n- **11 de junho de 2026**: 13,81% ([BODIVA Boletim 2725 - 2026-06-11](source))\n\n**Variação**: Aumento de 0,04 pontos percentuais (de 13,77% para 13,81%)",
+      "answer": "De acordo com os boletins BODIVA, o ponto 3M da curva de rendimentos em Kwanza (AOA) evoluiu da seguinte forma entre 8 e 11 de junho de 2026:\n\n- **8 de junho de 2026**: 13,77% ([BODIVA Boletim 2722 - 2026-06-08](source))\n- **11 de junho de 2026**: 13,81% ([BODIVA Boletim 2725 - 2026-06-11](source))\n\n**Variação**: Aumento de 0,04 pontos percentuais (de 13,77% para 13,81%)\n\nPortanto, o ponto 3M da curva Kz apresentou uma ligeira subida durante este período de três dias.",
       "expected": "3M: 8/06 (2722)=13,77%; 11/06 (2725)=13,81%; ligeira subida",
       "needs_gold": false
     },
@@ -283,7 +283,7 @@
         "5 415 000"
       ],
       "violations": [],
-      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nO boletim BODIVA 2724 de 2026-06-10 menciona que houve um \"Evento de Distribuicao: Cupão | codigo EI10U29A | emitente UGD | moeda USD\" na seção de mercado primário, indicando que ocorreu um leilão de OT-ME. No entanto, o documento não fornece detalhes sobre o montante colocado nesse leilão.\n\nPara obter essa informação, recomendo consultar o boletim completo ou contactar diretamente o seu intermediário SCVM.",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nO boletim BODIVA 2724 de 2026-06-10 menciona que houve um \"Evento de Distribuicao: Cupão | codigo EI10U29A | emitente UGD | moeda USD\" no mercado primário, indicando uma operação de cupão em OT-ME. No entanto, o documento não fornece detalhes sobre o montante colocado neste leilão.\n\nPara obter informações específicas sobre o montante colocado neste leilão de OT-ME, recomendo contactar o seu intermediário SCVM.",
       "expected": "Boletim 2724: OT-ME 3 anos (10-jun-29) cupão 4%, colocado 5.415.000 USD de 7.000.000 ofertado",
       "needs_gold": false
     },
@@ -300,7 +300,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2722 - 2026-06-08**, no quadro resumo da sessão:\n\n**Mercado de Títulos do Tesouro:**\n- Ambiente Multilateral (Bolsa): AOA 0,00\n  - OT-NR: AOA 0,00\n  - OT-ME: AOA 0,00\n\nPortanto, **não houve transacções de Bilhetes do Tesouro em bolsa** na sessão de 8 de junho de 2026. O montante negociado foi zero.\n\nFonte: [6] BODIVA Boletim 2722 - 2026-06-08, Quadro Resumo da Sessão",
+      "answer": "De acordo com o **BODIVA Boletim 2722 - 2026-06-08**, no quadro resumo da sessão:\n\n**Mercado de Títulos do Tesouro:**\n- Ambiente Multilateral (Bolsa): AOA 0,00\n- Ambiente Bilateral (OTC): AOA 0,00\n\n**Resposta: Não**, não houve transacções de Bilhetes do Tesouro em bolsa nessa data. O montante negociado foi de AOA 0,00 tanto no ambiente multilateral quanto no bilateral.\n\nNo entanto, é importante notar que houve transacções de **Obrigações do Tesouro Não Reajustáveis (OT-NR)** no mercado de bolsa, com 103 negócios realizados e 3.886.922 unidades transaccionadas, conforme indicado no resumo OT-NR do mesmo boletim.\n\nFonte: [6] BODIVA Boletim 2722 - 2026-06-08, quadro_resumo",
       "expected": "Não. Boletim 2722: 'Não se registaram transacções' de BT",
       "needs_gold": false
     },
@@ -317,7 +317,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, foi registada **1 operação de reporte** com os seguintes detalhes:\n\n**Operação de Reporte:**\n- **Colateral:** OJ10M28A (OT-NR)\n- **Valor de Mercado do Colateral:** AOA 13.016.344.328,83\n- **Quantidade:** 115.037 unidades\n- **Taxa Repo:** 13,00% ao ano\n- **Prazo:** 87 dias\n- **Data de Vencimento:** 3 de setembro de 2026\n- **Valor de Recompra:** AOA 13.419.672.696,94\n\n**Resumo Financeiro da Sessão:**\n- Total Valor de Compra: AOA 13.016.344.328,83\n- Total Valor de Recompra: AOA 13.419.672.696,94\n\nFonte: *BODIVA Boletim 2722 - 2026-06-08, Mercado de Operações de Reporte*",
+      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, foi registada **1 operação de reporte** com os seguintes detalhes:\n\n**Operação de Reporte:**\n- **Colateral:** OJ10M28A (OT-NR)\n- **Valor de Mercado do Colateral:** AOA 13.016.344.328,83\n- **Quantidade:** 115.037 unidades\n- **Taxa Repo:** 13,00% ao ano\n- **Prazo:** 87 dias\n- **Data de Vencimento:** 3 de setembro de 2026\n- **Valor de Recompra:** AOA 13.419.672.696,94\n\n**Resumo Financeiro:**\n- Total Valor de Compra: AOA 13.016.344.328,83\n- Total Valor de Recompra: AOA 13.419.672.696,94\n\nFonte: *BODIVA Boletim 2722 - 2026-06-08, Mercado de Operações de Reporte*",
       "expected": "Boletim 2722: colateral OJ10M28A, valor de mercado 13 016 344 328,83 AOA, taxa repo 13%, 87 dias",
       "needs_gold": false
     },
@@ -334,7 +334,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nO boletim BODIVA 2723 de 9 de junho de 2026 que me foi fornecido contém informações sobre:\n- Resumo da sessão de negociação\n- Desempenho dos membros de negociação\n- Cotações e características de Obrigações do Tesouro Não Reajustáveis (OT-NR)\n\nNo entanto, não inclui dados sobre eventos de distribuição de rendimentos (como pagamentos de cupões, dividendos ou outros eventos corporativos) nessa data.\n\nPara obter essa informação, recomendo consultar o boletim completo ou contactar diretamente o seu intermediário SCVM.",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nO BODIVA Boletim 2723 de 2026-06-09 que tenho disponível contém informações sobre negociações de títulos do tesouro (OT-NR), desempenho dos membros de negociação e cotações de obrigações, mas não inclui dados sobre eventos de distribuição de rendimentos (como pagamentos de cupões ou dividendos).\n\nPara obter informações sobre eventos de distribuição de rendimentos, recomendo consultar o seu intermediário SCVM ou aceder a documentação complementar do BODIVA relativa a esse período.",
       "expected": "Boletim 2723: UGD — BE09U26A (Resgate), EH09U26A (Cupão/Maturidade), EI09D26A (Cupão), EK09U29A (Cupão)",
       "needs_gold": false
     },
@@ -351,7 +351,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, a OT-NR **OL07A30A** apresentou uma variação de **-3,7%** (queda de 3,7%).\n\nA cotação anterior era de 108,0 e a cotação actual caiu para 104,0.",
+      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, a OT-NR **OL07A30A** apresentou uma variação de **-3,7%** (queda de 3,7%).\n\nA cotação anterior era de 108,0 e a cotação actual foi de 104,0.\n\nFonte: BODIVA Boletim 2722 - 2026-06-08, documento OL07A30A",
       "expected": "Boletim 2722: OL07A30A variação -3,70%",
       "needs_gold": false
     },
@@ -368,7 +368,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, a obrigação corporativa SNLEDOFB apresentou um **YTM (Yield to Maturity) de 16,90%**.\n\n**Fonte:** BODIVA Boletim 2722 - 2026-06-08, seção Mercado de Obrigações Privadas (Corporate Bonds)",
+      "answer": "De acordo com o **BODIVA Boletim 2722 de 8 de junho de 2026**, o YTM (Yield to Maturity) da obrigação corporativa SNLEDOFB foi de **16,90%**.\n\n**Fonte:** BODIVA Boletim 2722 - 2026-06-08, seção Mercado de Obrigações Privadas (Corporate Bonds)",
       "expected": "Boletim 2722: SNLEDOFB (SNL) YTM 16,90%, cotação 101,0000",
       "needs_gold": false
     },
@@ -400,7 +400,7 @@
       "hits": [],
       "misses": [],
       "violations": [],
-      "answer": "# Tratamento Fiscal de IAC para Obrigações com Maturidade ≥ 3 Anos na BODIVA\n\nCom base na documentação fornecida, o tratamento fiscal é o seguinte:\n\n## **Juros (Rendimentos de Juros)**\n\nOs juros das Obrigações do Tesouro em Moeda Nacional (OT-NR) beneficiam de uma **taxa reduzida de 5%** de IAC (em vez da taxa geral de 10%), quando:\n- Os títulos estão admitidos à negociação em mercado regulamentado (como a BODIVA)\n- A emissão apresenta maturidade igual ou superior a 3 anos\n\n*Fonte: Glossário de Instrumentos e Estrutura do Mercado BODIVA*\n\n## **Mais-Valias (Ganhos de Capital)**\n\nAs mais-valias na alienação destes títulos em mercado regulamentado com maturidade igual ou superior a 3 anos **relevam apenas em 50% do seu valor para efeitos de tributação**.\n\n*Fonte: Glossário de Instrumentos e Estrutura do Mercado BODIVA e Código do IAC (DLP 2/14), artigo 9.º*\n\n---\n\n**Nota:** Este tratamento fiscal preferencial aplica-se especificamente a títulos admitidos à negociação em mercado regulamentado como a BODIVA com maturidade ≥ 3 anos, representando um incentivo fiscal para investimentos de médio a longo prazo.",
+      "answer": "# Tratamento Fiscal de IAC para Obrigações com Maturidade ≥ 3 Anos na BODIVA\n\nCom base na documentação fornecida, o tratamento fiscal é o seguinte:\n\n## **Juros (Rendimentos de Juros)**\n\nOs juros das Obrigações do Tesouro em Moeda Nacional (OT-NR) beneficiam de uma **taxa reduzida de 5%** de IAC (em vez da taxa geral de 10%), quando:\n- Os títulos estão admitidos à negociação em mercado regulamentado (como a BODIVA)\n- A emissão apresenta maturidade igual ou superior a 3 anos\n\n*Fonte: Glossário de Instrumentos e Estrutura do Mercado BODIVA*\n\n## **Mais-Valias**\n\nAs mais-valias na alienação destes títulos em mercado regulamentado com maturidade igual ou superior a 3 anos **relevam apenas em 50% do seu valor para efeitos de tributação**.\n\n*Fonte: Glossário de Instrumentos e Estrutura do Mercado BODIVA e Código do IAC (DLP 2/14), artigo 9.º*\n\n---\n\n**Nota:** A informação sobre a taxa reduzida de 5% refere-se especificamente às OT-NR. Para outras categorias de obrigações (como OT-ME ou obrigações privadas), o tratamento fiscal pode diferir.",
       "expected": "Dois beneficios (qualquer um e resposta correcta): (a) juros tributados a taxa reduzida de 5% (em vez de 10%); (b) mais-valias relevam apenas em 50% do valor. Aceitar resposta que cite 5% OU 50%.",
       "needs_gold": false
     },
@@ -417,7 +417,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **Glossário de Instrumentos e Estrutura do Mercado BODIVA** [4], os rendimentos dos Bilhetes do Tesouro estão sujeitos a Imposto sobre a Aplicação de Capitais (IAC) à taxa geral de **10%**.\n\nNo entanto, o documento indica que podem beneficiar de uma taxa reduzida de **5%** quando admitidos à negociação em mercado regulamentado.\n\n**Fonte:** Glossário de Instrumentos e Estrutura do Mercado BODIVA [4]",
+      "answer": "De acordo com o **Glossário de Instrumentos e Estrutura do Mercado BODIVA** [4], os rendimentos dos Bilhetes do Tesouro estão sujeitos a Imposto sobre a Aplicação de Capitais (IAC) à taxa geral de **10%**.\n\nNo entanto, o documento indica que podem beneficiar de uma taxa reduzida de **5%** quando admitidos à negociação em mercado regulamentado.\n\nNo caso específico do título AOUGDOGM26A9-20260614 [1], este não está admitido à negociação (\"Admitidos à Negociação: Não\"), pelo que seria aplicável a taxa geral de 10%.",
       "expected": "Secção B: taxa geral de 10%, reduzida para 5% quando admitidos a mercado regulamentado com maturidade >=3 anos (Artigo 27 do Codigo do IAC). NAO e 15% (isso seria Seccao A).",
       "needs_gold": false
     },
@@ -434,7 +434,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com a documentação disponível, **não tenho essa informação na minha base de conhecimento.**\n\nEmbora os documentos confirmem que:\n\n1. Os juros de depósitos à ordem e a prazo estão sujeitos a IAC (Código do IAC, Artigo 9.º, alínea j) [3]\n2. Os rendimentos de aplicação de capitais estão divididos em Secção A e Secção B [6]\n3. A taxa geral de IAC é de 10%, com possibilidade de taxa reduzida de 5% em certos casos (exemplo dado para Bilhetes do Tesouro) [4]\n\nOs documentos fornecidos **não especificam explicitamente a taxa de IAC aplicável aos juros de depósitos bancários**.\n\nPara obter esta informação precisa, recomendo que contacte a sua instituição financeira ou consulte a legislação fiscal angolana completa sobre o IAC.",
+      "answer": "De acordo com a documentação disponível, os juros de depósitos bancários estão sujeitos a **Imposto sobre a Aplicação de Capitais (IAC)**.\n\nEspecificamente, segundo o **Glossário de Instrumentos e Estrutura do Mercado BODIVA**, os rendimentos de instrumentos como os Bilhetes do Tesouro (que funcionam de forma similar aos depósitos em termos de tratamento fiscal) estão sujeitos a IAC **à taxa geral de 10%, podendo beneficiar da taxa reduzida de 5% quando admitidos à negociação** [Glossário de Instrumentos e Estrutura do Mercado BODIVA].\n\nAlém disso, o **Código do IAC (DLP 2/14) - Artigo 9.º** menciona que os juros de depósitos à ordem e a prazo estão incluídos no âmbito do IAC [Código do IAC (DLP 2/14) - Artigo 9.º].\n\nNo entanto, para confirmar a taxa exata aplicável especificamente aos juros de depósitos bancários em todas as circunstâncias, recomendo que consulte o seu intermediário SCVM ou a Autoridade Tributária Angolana, pois a documentação disponível não detalha completamente todas as alíquotas específicas por tipo de depósito.",
       "expected": "Juros de depósitos (alínea j do Artigo 9) sao Seccao B: taxa geral de 10% (Artigo 27). Isencao para poupanca aprovada ate AKz 500.000 por pessoa.",
       "needs_gold": false
     },
@@ -502,7 +502,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **Glossário de Instrumentos e Estrutura do Mercado BODIVA**, as OT-ME são:\n\n**Obrigações do Tesouro emitidas pelo Tesouro Nacional cujo valor e/ou remuneração estão associados a uma moeda externa**, geralmente o dólar norte-americano (USD).\n\n**Principais características:**\n\n- **Proteção cambial**: Servem para oferecer aos investidores proteção contra a desvalorização do kwanza, uma vez que o valor de referência acompanha a moeda externa.\n\n- **Taxas de cupão**: Tipicamente apresentam taxas de cupão inferiores às das OT-NR em kwanzas, frequentemente na ordem dos **4% a 8%**, precisamente porque incorporam menor risco cambial para o investidor.\n\n- **Tributação**: Os rendimentos das OT-ME estão sujeitos a IAC (Imposto sobre Aplicações de Capital) pela Secção B, com a possibilidade de taxa reduzida de **5%** quando admitidas a mercado regulamentado e com maturidade igual ou superior a 3 anos.\n\nFonte: *Glossário de Instrumentos e Estrutura do Mercado BODIVA*",
+      "answer": "De acordo com o **Glossário de Instrumentos e Estrutura do Mercado BODIVA**, as OT-ME são:\n\n**Obrigações do Tesouro Nacional com valor e/ou remuneração associados a uma moeda externa**, geralmente o dólar norte-americano (USD).\n\n**Principais características:**\n\n1. **Proteção cambial**: Servem para oferecer aos investidores proteção contra a desvalorização do kwanza, uma vez que o valor de referência acompanha a moeda externa.\n\n2. **Taxas de cupão**: Tipicamente apresentam taxas de cupão inferiores às das OT-NR em kwanzas, frequentemente na ordem dos **4% a 8%**, precisamente porque incorporam menor risco cambial para o investidor.\n\n3. **Tributação**: Os rendimentos das OT-ME estão sujeitos a IAC (Imposto sobre Aplicações de Capital) pela Secção B, com a possibilidade de taxa reduzida de **5%** quando admitidas a mercado regulamentado e com maturidade igual ou superior a 3 anos.\n\n*Fonte: Glossário de Instrumentos e Estrutura do Mercado BODIVA*",
       "expected": "Obrigações do Tesouro em Moeda Externa — indexadas a USD, cupão ~ inferior ao das OT-NR (ex.: 4-8%).",
       "needs_gold": false
     },
@@ -519,7 +519,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "# Operação de Reporte (Repo) na BODIVA\n\nSegundo o **Glossário de Instrumentos e Estrutura do Mercado BODIVA** [2], uma operação de reporte (repo) é:\n\n**Definição:** Uma operação em que uma parte vende títulos a outra e compromete-se a recomprá-los numa data futura a um preço acordado.\n\n**Funcionamento prático:** Na prática, funciona como um **financiamento de curto prazo**, onde:\n- O **vendedor** obtém liquidez imediata e os títulos servem de colateral (garantia)\n- O **comprador** recebe os títulos e, no final, devolve-os contra o pagamento do preço de recompra, obtendo um rendimento equivalente à taxa de reporte (taxa repo)\n\n**Elementos típicos de uma operação de reporte:**\n1. O título dado em colateral\n2. O valor de mercado do colateral\n3. A quantidade\n4. A taxa de reporte (taxa repo)\n5. O haircut (margem de segurança aplicada ao valor do colateral)\n6. O número de dias até ao vencimento da operação\n\n**Importância:** Os repos são instrumentos centrais na gestão de liquidez do sistema financeiro [2].",
+      "answer": "# Operação de Reporte (Repo) na BODIVA\n\nSegundo o **Glossário de Instrumentos e Estrutura do Mercado BODIVA** [3], uma operação de reporte é:\n\n> \"Uma operação na qual uma parte vende títulos a outra e compromete-se a recomprá-los numa data futura a um preço acordado.\"\n\n## Funcionamento Prático\n\nNa prática, funciona como um **financiamento de curto prazo**:\n\n- **Para o vendedor**: obtém liquidez imediata, com os títulos servindo de colateral (garantia)\n- **Para o comprador**: recebe os títulos e, no final, devolve-os contra o pagamento do preço de recompra, obtendo um rendimento equivalente à taxa de reporte\n\n## Elementos Típicos\n\nOs componentes principais de uma operação de reporte são:\n\n1. O título dado em colateral\n2. O valor de mercado do colateral\n3. A quantidade\n4. A taxa de reporte (taxa repo)\n5. O haircut (margem de segurança aplicada ao valor do colateral)\n6. O número de dias até ao vencimento da operação\n\n## Importância\n\nOs repos são **instrumentos centrais na gestão de liquidez do sistema financeiro** e são registados no mercado de operações de reporte da BODIVA [3].",
       "expected": "Venda de um título com acordo de recompra futura a preço acordado; financiamento de curto prazo com colateral (taxa repo, haircut, prazo em dias).",
       "needs_gold": false
     },
@@ -553,7 +553,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com a **Lei 22/15, Artigo 2.º (Definições)**, agentes de intermediação são definidos como:\n\n> \"as instituições financeiras que estejam autorizadas a exercer um ou mais serviços e actividades de investimento em valores mobiliários e instrumentos derivados em Angola e que se encontrem registadas junto do Organismo de Supervisão do Mercado de Valores Mobiliários\"\n\n**Fonte:** Lei 22/15 — Artigo 2.º, alínea a)\n\nEsta definição estabelece dois requisitos essenciais:\n1. Serem instituições financeiras autorizadas\n2. Estarem registadas junto do Organismo de Supervisão do Mercado de Valores Mobiliários\n\nA Lei também estabelece obrigações específicas para os agentes de intermediação, como a manutenção de contabilidade diária refletindo saldos de clientes em dinheiro e valores mobiliários (Artigo 335.º).",
+      "answer": "De acordo com a **Lei 22/15, Artigo 2.º (Definições)**, agentes de intermediação são definidos como:\n\n> \"as instituições financeiras que estejam autorizadas a exercer um ou mais serviços e actividades de investimento em valores mobiliários e instrumentos derivados em Angola e que se encontrem registadas junto do Organismo de Supervisão do Mercado de Valores Mobiliários\"\n\n**Fonte:** Lei 22/15 — Artigo 2.º, alínea a)\n\nEsta definição estabelece dois requisitos essenciais:\n1. Serem instituições financeiras autorizadas\n2. Estarem registadas junto do Organismo de Supervisão do Mercado de Valores Mobiliários\n\nA Lei também estabelece deveres específicos para os agentes de intermediação, incluindo obrigações de contabilidade e registos diários das operações realizadas, conforme previsto no Artigo 335.º da mesma Lei.",
       "expected": "Resposta deve citar a Lei 22/15 (Código dos Valores Mobiliários) e descrever agentes de intermediação.",
       "needs_gold": false
     },
@@ -570,7 +570,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **Decreto Legislativo Presidencial n.º 5/13, Artigo 5.º**, o capital social mínimo das SCVM é fixado **por regulamento da Comissão do Mercado de Capitais (CMC)**.\n\nEspecificamente, o artigo estabelece que:\n\n> \"A Comissão de Mercado de Capitais fixa, por regulamento, o capital social mínimo das sociedades correctoras e das sociedades distribuidoras de valores mobiliários.\"\n\nAlém disso, a CMC pode também, através de regulamento, sujeitar a prática de determinados actos à verificação de um certo montante de capital social ou património líquido da sociedade.\n\nPara conhecer o valor específico do capital social mínimo atualmente em vigor, deverá consultar os regulamentos vigentes da CMC ou contactar a sua SCVM intermediária.",
+      "answer": "De acordo com o **Decreto Legislativo Presidencial n.º 5/13, Artigo 5.º**, o capital social mínimo das SCVM é fixado **por regulamento da Comissão do Mercado de Capitais (CMC)**.\n\nEspecificamente, o artigo estabelece que:\n\n> \"A Comissão de Mercado de Capitais fixa, por regulamento, o capital social mínimo das sociedades correctoras e das sociedades distribuidoras de valores mobiliários.\"\n\nAlém disso, a CMC pode também, através de regulamento, sujeitar a prática de determinados actos à verificação de um certo montante de capital social ou património líquido da sociedade.\n\n**Fonte:** Decreto Legislativo Presidencial n.º 5/13 - Regime SCVM e SDVM, Artigo 5.º",
       "expected": "A CMC fixa por regulamento (DLP 5/13, Art. 5).",
       "needs_gold": false
     },
@@ -604,7 +604,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos disponíveis contêm dados sobre a OG13M29A apenas a partir de 5 de junho de 2026 (BODIVA Boletim 2721). Não há informações sobre a cotação desta obrigação em 1 de janeiro de 2026 nos boletins fornecidos.",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos disponíveis contêm dados sobre a OG13M29A apenas a partir de **5 de junho de 2026** (BODIVA Boletim 2721). Não há informações sobre a cotação desta obrigação em 1 de janeiro de 2026 nos boletins fornecidos.",
       "expected": "Não disponível — a base começa em 2 de março de 2026 (boletim 2654). Deve indicar honestamente que não tem o dado.",
       "needs_gold": false
     },
@@ -621,7 +621,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2654 de 2 de março de 2026**, o montante total negociado na sessão foi de **AOA 24.283.611.628,43** (aproximadamente 24,3 mil milhões de Angolas).\n\nFonte: BODIVA Boletim 2654 - 2026-03-02, Quadro Resumo da Sessão.",
+      "answer": "De acordo com o **BODIVA Boletim 2654 de 2 de março de 2026**, o montante total negociado na sessão foi de **AOA 24.283.611.628,43** (aproximadamente 24,3 mil milhões de Angolas).\n\nEste valor corresponde ao total geral da sessão, representando o volume oficial de negociação no mercado naquela data.\n\n**Fonte:** BODIVA Boletim 2654 - 2026-03-02, Quadro Resumo da Sessão",
       "expected": "Boletim 2654: 24 283 611 628,43 AOA",
       "needs_gold": false
     },
@@ -656,7 +656,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "# Evolução do ponto 3M da curva Kwanza (AOA)\n\nEntre 2 de março e 11 de junho de 2026, o ponto 3M da curva de rendimentos Kwanza evoluiu da seguinte forma:\n\n- **2 de março de 2026**: 14,62% ([BODIVA Boletim 2654 - 2026-03-02](source))\n- **11 de junho de 2026**: 13,81% ([BODIVA Boletim 2725 - 2026-06-11](source))\n\n**Variação**: Redução de **0,81 pontos percentuais** (de 14,62% para 13,81%)\n\nIsto representa uma queda na taxa de rendimento do segmento de curto prazo (3 meses) da curva de rendimentos em Kwanza durante este período de aproximadamente 3 meses.",
+      "answer": "# Evolução do ponto 3M da curva Kwanza (AOA)\n\nEntre 2 de março e 11 de junho de 2026, o ponto 3M da curva de rendimentos Kwanza evoluiu da seguinte forma:\n\n- **2 de março de 2026**: 14,62% ([BODIVA Boletim 2654 - 2026-03-02](source))\n- **11 de junho de 2026**: 13,81% ([BODIVA Boletim 2725 - 2026-06-11](source))\n\n**Variação**: Redução de **0,81 pontos percentuais** (de 14,62% para 13,81%)\n\nIsto representa uma queda nas taxas de curto prazo (3 meses) no mercado de Kwanza durante este período de aproximadamente 3 meses.",
       "expected": "3M: 02/03 (2654)=14,62%; 11/06 (2725)=13,81%; descida ao longo do período",
       "needs_gold": false
     },
@@ -673,7 +673,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o BODIVA Boletim 2722 de 8 de junho de 2026, a taxa de cupão da OT-NR OOO1134A era de **23,00% ao ano** [Fonte: BODIVA Boletim 2722 - 2026-06-08, documento 5].",
+      "answer": "De acordo com o BODIVA Boletim 2722 de 8 de junho de 2026, a taxa de cupão da OT-NR OOO1134A era de **23,00% ao ano** ([5] BODIVA Boletim 2722 - 2026-06-08, OOO1134A).",
       "expected": "Boletim 2722: OOO1134A cupão 23,00%",
       "needs_gold": false
     },
@@ -690,7 +690,7 @@
         "330"
       ],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2723 - 2026-06-09**, o número total de negócios de todos os membros foi **0 (zero)**.\n\nConforme indicado na seção \"DESEMPENHO DOS MEMBROS DE NEGOCIACAO\", todos os membros listados apresentam \"0 negocios\" registados nessa sessão.",
+      "answer": "De acordo com o **BODIVA Boletim 2723 de 2026-06-09**, na seção de **Desempenho dos Membros de Negociação**, o número total de negócios de todos os membros foi **0 (zero)**.\n\nEspecificamente, o documento indica \"0 negocios\" para cada um dos membros listados (SINV, RESULTADOS, BFACM, VALOR, FINCREST, AUREA, INCD, PCAP, LMB, PRIME, HCPS, EAGLESTONE, MADZ, KITADI e LUCRUM).\n\nFonte: BODIVA Boletim 2723 - 2026-06-09, seção Desempenho dos Membros de Negociação.",
       "expected": "Boletim 2723: total de 330 negócios",
       "needs_gold": false
     },
@@ -698,16 +698,16 @@
       "id": "Q41",
       "category": "negative_check",
       "question": "Houve operações de reporte no boletim de 11 de junho de 2026?",
-      "verdict": "PASS",
+      "verdict": "FAIL",
       "expected_qtype": "specific_date",
       "returned_qtype": "specific_date",
       "qtype_ok": true,
-      "hits": [
+      "hits": [],
+      "misses": [
         "não"
       ],
-      "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2725 - 2026-06-11**, na seção \"Mercado de Operacoes de Reporte\":\n\n**Nao se registaram operacoes nesta sessao.**\n\nPortanto, não houve operações de reporte (repo) na sessão de 11 de junho de 2026.",
+      "answer": "De acordo com o **BODIVA Boletim 2725 de 11 de junho de 2026**, na secção \"Mercado de Operacoes de Reporte\":\n\n**Nao se registaram operacoes nesta sessao.**\n\nFonte: BODIVA Boletim 2725 - 2026-06-11, secção \"repos\"",
       "expected": "Não. Boletim 2725: mercado de operações de reporte = 0,00 AOA / sem transacções",
       "needs_gold": false
     },
@@ -724,7 +724,7 @@
         "15,34"
       ],
       "violations": [],
-      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos fornecidos (BODIVA Boletim 2723 - 2026-06-09) contêm informações sobre ações (BAIAAAAA, BDVAAAAA, BCGAAAAA, ENSAAAAA, BFAAAAAA) e obrigações do tesouro (OT-NR), mas não há qualquer referência a um instrumento chamado \"BAIODOFA\" neste boletim.\n\nSe procura informações sobre uma ação ou obrigação específica, posso ajudar se fornecer o código correto do instrumento.",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos fornecidos (BODIVA Boletim 2723 - 2026-06-09) contêm informações sobre ações (BAIAAAAA, BDVAAAAA, BCGAAAAA, ENSAAAAA, BFAAAAAA) e obrigações do tesouro (OJ10M28A, OL10D30A), mas não incluem dados sobre um instrumento com o código ou nome \"BAIODOFA\".\n\nSe procura informações sobre um título específico, por favor verifique o código exato do instrumento.",
       "expected": "Boletim 2723: BAIODOFA (BAI) YTM 15,34%, cotação 115,0000",
       "needs_gold": false
     },
@@ -773,7 +773,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "# O que é a BODIVA e quando foi fundada?\n\n## Definição\n\nA **BODIVA (Bolsa de Dívida e Valores de Angola)** é a entidade gestora dos mercados regulamentados de valores mobiliários e derivados em Angola. [1]\n\nEspecificamente, o seu objeto social consiste na gestão de dois mercados regulamentados:\n- **Mercado de Bolsa**\n- **Mercado de Balcão Organizado (MBO)**\n\nA BODIVA também pode exercer atividades conexas, como prestação de serviços relacionados com a emissão e negociação de valores mobiliários, gestão de sistemas de compensação e liquidação, e gestão do sistema centralizado de valores mobiliários. [5]\n\n## Data de Fundação\n\nA BODIVA foi **fundada em Julho de 2014** para promover o mercado de valores mobiliários nacional. [4][5]\n\n## Contexto Histórico\n\nA BODIVA foi precedida pela constituição da **Bolsa de Derivados de Angola, S.A. (BVDA)** em 2006, através do Decreto 9/05, de 18 de Março, no contexto da publicação da Lei de Valores Mobiliários (Lei 12/05, de 23 de Setembro). [5]",
+      "answer": "# O que é a BODIVA e quando foi fundada?\n\n## Definição\n\nA **BODIVA (Bolsa de Dívida e Valores de Angola)** é a entidade gestora dos mercados regulamentados de valores mobiliários e derivados em Angola. Segundo o documento de glossário, seu objeto social consiste na gestão dos mercados regulamentados — o Mercado de Bolsa e o Mercado de Balcão Organizado (MBO) — podendo ainda exercer atividades conexas, como a prestação de serviços relacionados com a emissão e negociação de valores mobiliários, a gestão de sistemas de compensação e liquidação, e a gestão do sistema centralizado de valores mobiliários. [Glossário de Instrumentos e Estrutura do Mercado BODIVA]\n\n## Data de Fundação\n\nA BODIVA foi **fundada em Julho de 2014** para promover o mercado de valores mobiliários nacional. [BODIVA - Historia, Missao e Objecto Social; Glossário de Instrumentos e Estrutura do Mercado BODIVA]\n\n## Contexto Histórico\n\nA BODIVA foi precedida pela constituição da **Bolsa de Derivados de Angola, S.A. (BVDA) em 2006**, através do Decreto 9/05, de 18 de Março, no contexto da publicação da Lei de Valores Mobiliários (Lei 12/05, de 23 de Setembro). [Glossário de Instrumentos e Estrutura do Mercado BODIVA]",
       "expected": "Bolsa de Dívida e Valores de Angola, fundada em Julho de 2014 (precedida pela constituição da BVDA em 2006).",
       "needs_gold": false
     },
@@ -807,7 +807,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2723 - 2026-06-09**, a acção ENSAAAAA (ENSA) apresentou uma variação de **1,47%** na sessão de 9 de junho de 2026.\n\nA cotação actual foi de AOA 34,500.00, comparada com a cotação anterior de AOA 34,000.00.",
+      "answer": "De acordo com o **BODIVA Boletim 2723 - 2026-06-09**, a variação percentual das acções ENSAAAAA foi de **1,47%** (positiva).\n\n**Fonte:** BODIVA Boletim 2723 - 2026-06-09, documento [4]",
       "expected": "Boletim 2723: ENSAAAAA variação +1,47% (34 000 -> 34 500)",
       "needs_gold": false
     },
@@ -824,7 +824,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2724 de 2026-06-10**, o membro com maior montante negociado foi a **VALOR**, com **AOA 6.970.580.931,66**, representando **50,904%** da quota de negociação nessa sessão.\n\n**Fonte:** BODIVA Boletim 2724 - 2026-06-10, seção \"Desempenho dos Membros de Negociação\"",
+      "answer": "De acordo com o **BODIVA Boletim 2724 de 2026-06-10**, o membro com maior montante negociado foi a **VALOR**, com **AOA 6.970.580.931,66**, representando **50,904%** da quota de negociação naquela sessão.\n\n**Fonte:** BODIVA Boletim 2724 - 2026-06-10, seção \"Desempenho dos Membros de Negociação\"",
       "expected": "Boletim 2724: VALOR, 6 970 580 931,66 AOA (50,904%)",
       "needs_gold": false
     },
@@ -839,7 +839,7 @@
       "hits": [],
       "misses": [],
       "violations": [],
-      "answer": "Com base nos boletins BODIVA disponíveis, a evolução do montante total negociado entre 8 e 11 de junho de 2026 foi a seguinte:\n\n**8 de junho de 2026 (Boletim 2722):**\n- Total Geral da Sessão: AOA 15.888.436.377,12\n\n**11 de junho de 2026 (Boletim 2725):**\n- Total Geral da Sessão: AOA 4.558.204.962,60\n\n**Variação:**\nHouve uma **redução significativa** de AOA 11.330.231.414,52 no montante total negociado, representando uma queda de aproximadamente 71,3% entre estas duas datas.\n\nFonte: BODIVA Boletim 2722 (2026-06-08) - Quadro Resumo da Sessão e BODIVA Boletim 2725 (2026-06-11) - Quadro Resumo da Sessão.",
+      "answer": "Com base nos boletins BODIVA disponíveis, a evolução do montante total negociado entre 8 e 11 de junho de 2026 foi a seguinte:\n\n**8 de junho de 2026 (Boletim 2722):**\nAOA 15.888.436.377,12\n\n**11 de junho de 2026 (Boletim 2725):**\nAOA 4.558.204.962,60\n\n**Variação:**\nHouve uma **redução significativa** de aproximadamente 71,3% no montante total negociado entre estas duas datas. O volume caiu de AOA 15,9 mil milhões para AOA 4,6 mil milhões.\n\n*Fontes: BODIVA Boletim 2722 - 2026-06-08 (Quadro Resumo da Sessão) e BODIVA Boletim 2725 - 2026-06-11 (Quadro Resumo da Sessão)*",
       "expected": "08/06=15,89bn; 09/06=13,80bn; 10/06=9,25bn; 11/06=4,56bn AOA — tendência descendente ao longo da semana",
       "needs_gold": false
     },
@@ -856,7 +856,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2723 - 2026-06-09**, houve **6 operações de reporte** com as seguintes taxas:\n\n1. **OL07A30A**: Taxa Repo de **11,80%** (4 operações com este colateral)\n2. **OH15M30A**: Taxa Repo de **11,90%** (2 operações com este colateral)\n\nFonte: BODIVA Boletim 2723 - 2026-06-09, seção \"Mercado de Operações de Reporte (Repo Market)\"",
+      "answer": "De acordo com o **BODIVA Boletim 2723 - 2026-06-09**, houve **6 operações de reporte** com as seguintes taxas:\n\n- **4 operações** com colateral OL07A30A: taxa repo de **11,80%** (prazo de 6 dias, vencimento em 2026-06-15)\n\n- **2 operações** com colateral OH15M30A: taxa repo de **11,90%** (prazo de 7 dias, vencimento em 2026-06-16)\n\nPortanto, as taxas repo variaram entre **11,80%** e **11,90%** conforme o colateral e prazo da operação.",
       "expected": "Boletim 2723: operações com taxa repo 11,80% e 11,90% (verificar colaterais OL07A30A e OH15M30A)",
       "needs_gold": false
     },
@@ -873,7 +873,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2724 de 2026-06-10**, o YTM (Yield to Maturity) do ponto 1Y (1 ano) da curva de rendimentos em Kwanza (AOA) foi de **16,55%**.\n\nFonte: BODIVA Boletim 2724 - 2026-06-10, Curva de Rendimentos Kwanza (AOA)",
+      "answer": "De acordo com o **BODIVA Boletim 2724 de 2026-06-10**, o YTM (Yield to Maturity) do ponto 1Y (1 ano) da curva de rendimentos em Kwanza (AOA) foi de **16,55%**.\n\nFonte: BODIVA Boletim 2724 - 2026-06-10, Seção \"Curva de Rendimentos Kwanza (AOA)\"",
       "expected": "Boletim 2724, curva Kz 1Y: 16,55%",
       "needs_gold": false
     },
@@ -903,7 +903,7 @@
       "hits": [],
       "misses": [],
       "violations": [],
-      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos fornecidos (BODIVA Boletim 2706 de 15 de maio de 2026) contêm informações sobre negociações específicas de Obrigações do Tesouro (OT-NR) e outros instrumentos no mercado, mas não incluem dados sobre a curva de rendimentos (curva Kz) ou pontos específicos dessa curva para o prazo de 7 anos.\n\nPara obter essa informação, recomendo consultar o relatório completo de curvas de rendimentos ou contactar diretamente o seu intermediário SCVM.",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos fornecidos (BODIVA Boletim 2706 de 15 de maio de 2026) contêm informações sobre negociações específicas de Obrigações do Tesouro (OT-NR) e outros instrumentos no mercado, mas não incluem dados sobre a curva de rendimentos (curva Kz) ou pontos específicos dessa curva para o prazo de 7 anos.\n\nPara obter essa informação, recomendo consultar o relatório completo de curvas de rendimentos ou contactar seu intermediário SCVM.",
       "expected": "PREENCHER: boletim 2706 (2026-05-15), curva Kz, ponto 7Y.",
       "needs_gold": true
     },
@@ -913,12 +913,12 @@
       "question": "Qual membro liderou o montante negociado em 1 de abril de 2026?",
       "verdict": "NEEDS_GOLD",
       "expected_qtype": "specific_date",
-      "returned_qtype": "specific_date",
-      "qtype_ok": true,
+      "returned_qtype": "current_state",
+      "qtype_ok": false,
       "hits": [],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o **BODIVA Boletim 2676 de 1 de abril de 2026**, a informação sobre montantes negociados por membro mostra:\n\n**\"Soma dos montantes por membro (inclui ambas as pontas de cada negocio; NAO e o montante total da sessao): AOA 0.00\"**\n\nTodos os membros apresentam **AOA 0.00** em montante negociado nessa data.\n\nNo entanto, se considerarmos o **volume em quantidade (qtd)** e **quota de participação**, o membro **INCD** liderou com:\n- **10.462.509 unidades** negociadas\n- **58,826% de quota**\n- 3 negócios realizados\n\nFonte: *BODIVA Boletim 2676 - Desempenho dos Membros de Negociação, 1 de abril de 2026*",
+      "answer": "Nao tenho essa informacao na minha base de conhecimento.\n\nOs documentos fornecidos contêm dados de boletins BODIVA de junho de 2026 (dias 2, 3, 4, 8 e 11), mas não incluem informações sobre o desempenho dos membros em 1 de abril de 2026.\n\nPara obter essa informação, você precisaria consultar o boletim BODIVA correspondente à data de 1 de abril de 2026.",
       "expected": "PREENCHER: boletim 2676 (2026-04-01), membro com maior montante.",
       "needs_gold": true
     },
@@ -933,7 +933,7 @@
       "hits": [],
       "misses": [],
       "violations": [],
-      "answer": "Sim, houve eventos de distribuição no mercado primário em 15 de abril de 2026.\n\nDe acordo com o **BODIVA Boletim 2685 - 2026-04-15**, na seção \"MERCADO PRIMARIO - LEILOES DE TITULOS DO TESOURO\", foram registados os seguintes eventos de distribuição:\n\n**Eventos de Cupão/Resgate:**\n- OF15A26A (UGD, AOA)\n\n**Eventos de Cupão:**\n- OF15O26A, OH15O28A, OJ15O30B, OJ15O31A, OH15O29A, OH15O29B, OI15A30A, OG15O27A, OK15A31A, OG15O26A, OG15O26B, OG15O27B, OG15A27A, OH15A27A, OH15O27D, OI15O29A, OH15O27C (todos emitidos por UGD, AOA)\n\n**Evento de Dividendos:**\n- ENSAAAAA (ENSA, AOA)\n\nTodos estes eventos foram registados no boletim de 15 de abril de 2026.",
+      "answer": "Sim, houve eventos de distribuição no mercado primário em 15 de abril de 2026.\n\nDe acordo com o **BODIVA Boletim 2685 - 2026-04-15**, na seção \"MERCADO PRIMARIO - LEILOES DE TITULOS DO TESOURO\", foram registados os seguintes eventos:\n\n**Um evento de Cupão/Resgate:**\n- Código OF15A26A (emitente UGD, moeda AOA)\n\n**Dezassete eventos de Cupão:**\n- OF15O26A, OH15O28A, OJ15O30B, OJ15O31A, OH15O29A, OH15O29B, OI15A30A, OG15O27A, OK15A31A, OG15O26A, OG15O26B, OG15O27B, OG15A27A, OH15A27A, OH15O27D, OI15O29A, OH15O27C (todos emitente UGD, moeda AOA)\n\n**Um evento de Dividendos:**\n- Código ENSAAAAA (emitente ENSA, moeda AOA)\n\nPortanto, houve um total de **19 eventos de distribuição** registados no mercado primário nessa data.",
       "expected": "PREENCHER: boletim 2685 (2026-04-15), secção mercado primário.",
       "needs_gold": true
     },
@@ -995,7 +995,7 @@
       "hits": [],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com o BODIVA Boletim 2725 de 11 de junho de 2026, a OT-NR com o YTM mais elevado era a **OK05A29B**, com um YTM (Yield to Maturity) de **18,57%** ao ano.\n\nEsta obrigação tem as seguintes características:\n- **Código:** OK05A29B\n- **Data de Emissão:** 2022-04-05\n- **Data de Maturidade:** 2029-05-04\n- **Taxa de Cupão:** 16,25% ao ano\n- **YTM:** 18,57%\n- **Cotação Actual:** 95,0\n\nFonte: BODIVA Boletim 2725 - 2026-06-11",
+      "answer": "De acordo com o BODIVA Boletim 2725 de 11 de junho de 2026, a OT-NR com o YTM mais elevado era a **OK05A29B**, com um YTM (Yield to Maturity) de **18,57%**.\n\nEsta obrigação tem as seguintes características:\n- **Código:** OK05A29B\n- **Data de Emissão:** 2022-04-05\n- **Data de Maturidade:** 2029-05-04\n- **Taxa de Cupão:** 16,25% ao ano\n- **YTM:** 18,57%\n- **Cotação Actual:** 95,0\n\nFonte: BODIVA Boletim 2725 - 2026-06-11",
       "expected": "Requer ordenar YTMs do boletim 2725. Pergunta de análise — provavelmente falha antes da Fase 3 (camada de analytics). Avaliar manualmente.",
       "needs_gold": false
     },
@@ -1012,7 +1012,7 @@
       ],
       "misses": [],
       "violations": [],
-      "answer": "De acordo com a documentação BODIVA, a diferença entre o Mercado de Bolsa e o Mercado de Balcão Organizado (MBO) é:\n\n**Mercado de Bolsa:**\nÉ um mercado de negociação **multilateral e centralizado**, em que as ordens de compra e venda de vários participantes concorrem entre si num ambiente regulado. [Fonte: Glossario de Instrumentos e Estrutura do Mercado BODIVA]\n\n**Mercado de Balcão Organizado (MBO):**\nÉ um mercado destinado ao registo de operações negociadas de forma **bilateral** (directamente entre duas partes, \"over-the-counter\"), conferindo-lhes o enquadramento e a transparência de um mercado regulamentado. [Fonte: Glossario de Instrumentos e Estrutura do Mercado BODIVA]\n\nEm resumo: o Mercado de Bolsa é centralizado com múltiplos participantes em concorrência, enquanto o MBO é bilateral com negociações directas entre duas partes, ambos operando sob regulação da BODIVA.",
+      "answer": "De acordo com a documentação BODIVA, a diferença entre o Mercado de Bolsa e o Mercado de Balcão Organizado (MBO) é a seguinte:\n\n**Mercado de Bolsa:**\nÉ um mercado de negociação **multilateral e centralizado**, em que as ordens de compra e venda de vários participantes concorrem entre si num ambiente regulado. ([2] Glossario de Instrumentos e Estrutura do Mercado BODIVA)\n\n**Mercado de Balcão Organizado (MBO):**\nÉ um mercado destinado ao registo de operações negociadas de forma **bilateral** (directamente entre duas partes, \"over-the-counter\"), conferindo-lhes o enquadramento e a transparência de um mercado regulamentado. ([2] Glossario de Instrumentos e Estrutura do Mercado BODIVA)\n\nEm resumo, a principal diferença é que o Mercado de Bolsa é **centralizado e multilateral**, enquanto o MBO é **bilateral e descentralizado**, embora ambos sejam mercados regulamentados geridos pela BODIVA. ([4] Glossario de Instrumentos e Estrutura do Mercado BODIVA)",
       "expected": "Mercado de Bolsa: negociação multilateral em bolsa. Mercado de Balcão Organizado: registo de operações bilaterais/OTC. Resposta conceptual aceitável.",
       "needs_gold": false
     }
