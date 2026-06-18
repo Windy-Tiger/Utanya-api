@@ -1,6 +1,7 @@
 import os
 import json
 import tempfile
+from datetime import datetime
 from fastapi import APIRouter, UploadFile, File, HTTPException, Request, Security
 from fastapi.security.api_key import APIKeyHeader
 from pydantic import BaseModel
@@ -325,17 +326,49 @@ async def query(
                 if latest['content'][:100] not in existing:
                     semantic_results = [latest] + list(semantic_results)
  
-        keyword_results = await conn.fetch("""
-            SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
-                   ts_rank(to_tsvector('portuguese', rc.content),
-                           plainto_tsquery('portuguese', $1)) AS kw_rank
-            FROM rag_chunks rc
-            JOIN rag_documents rd ON rc.document_id = rd.id
-            WHERE to_tsvector('portuguese', rc.content)
-                  @@ plainto_tsquery('portuguese', $1)
-            ORDER BY kw_rank DESC
-            LIMIT 20
-        """, body.question)
+        # Keyword date filter: for current/specific_date queries, restrict to
+        # recent bulletins so old results don't beat current ones on keyword rank.
+        # trend and comparison span full history intentionally.
+        if qtype == "specific_date" and dates:
+            date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
+            keyword_results = await conn.fetch("""
+                SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
+                       ts_rank(to_tsvector('portuguese', rc.content),
+                               plainto_tsquery('portuguese', $1)) AS kw_rank
+                FROM rag_chunks rc
+                JOIN rag_documents rd ON rc.document_id = rd.id
+                WHERE to_tsvector('portuguese', rc.content)
+                      @@ plainto_tsquery('portuguese', $1)
+                  AND (rd.doc_type != 'bulletin' OR rd.doc_date = ANY($2::date[]))
+                ORDER BY kw_rank DESC
+                LIMIT 20
+            """, body.question, date_objs)
+        elif qtype == "current_state":
+            keyword_results = await conn.fetch("""
+                SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
+                       ts_rank(to_tsvector('portuguese', rc.content),
+                               plainto_tsquery('portuguese', $1)) AS kw_rank
+                FROM rag_chunks rc
+                JOIN rag_documents rd ON rc.document_id = rd.id
+                WHERE to_tsvector('portuguese', rc.content)
+                      @@ plainto_tsquery('portuguese', $1)
+                  AND (rd.doc_type != 'bulletin'
+                       OR rd.doc_date >= (CURRENT_DATE - INTERVAL '14 days'))
+                ORDER BY kw_rank DESC
+                LIMIT 20
+            """, body.question)
+        else:
+            keyword_results = await conn.fetch("""
+                SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
+                       ts_rank(to_tsvector('portuguese', rc.content),
+                               plainto_tsquery('portuguese', $1)) AS kw_rank
+                FROM rag_chunks rc
+                JOIN rag_documents rd ON rc.document_id = rd.id
+                WHERE to_tsvector('portuguese', rc.content)
+                      @@ plainto_tsquery('portuguese', $1)
+                ORDER BY kw_rank DESC
+                LIMIT 20
+            """, body.question)
 
     # --- Reciprocal Rank Fusion (RRF) of semantic + keyword results ---
     RRF_K = 60

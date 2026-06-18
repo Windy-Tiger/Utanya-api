@@ -265,7 +265,7 @@ def build_retrieval_sql(
     query_type: QueryType,
     dates: list[str] | None = None,
     recency_window_days: int = RECENCY_WINDOW_DAYS_DEFAULT,
-    top_k: int = 5,
+    top_k: int = 15,
     question: str = "",
 ):
     """
@@ -343,10 +343,20 @@ def build_retrieval_sql(
 
     if query_type == "current_state":
         # Similarity search restricted to the most recent N days.
+        # Section-detection bonus floats the targeted chunk type to the top.
         # Falls back to no date filter if nothing matches (handled by caller).
+        sections = detect_sections(question) if question else []
+        section_bonus = ""
+        if sections:
+            cases = " + ".join(
+                f"(CASE WHEN rc.metadata->>'section' = '{s.replace(chr(39), '')}'"
+                f" THEN {0.08 - i * 0.01:.2f} ELSE 0 END)"
+                for i, s in enumerate(sections[:4])
+            )
+            section_bonus = f"+ {cases}"
         sql = f"""
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
-                   1 - (rc.embedding <=> $1::vector) AS similarity
+                   (1 - (rc.embedding <=> $1::vector)) {section_bonus} AS similarity
             FROM rag_chunks rc
             JOIN rag_documents rd ON rc.document_id = rd.id
             WHERE rd.doc_type != 'bulletin'
@@ -357,13 +367,24 @@ def build_retrieval_sql(
         return sql, [], True
 
     if query_type == "trend":
-        # Full-range similarity search with a small recency-decay bonus.
-        # (CURRENT_DATE - rd.doc_date) is already an integer number of days
-        # in Postgres -- no EXTRACT() needed/valid here.
+        # Full-range similarity search across all history.
+        # Small recency-decay keeps recent data slightly preferred when scores tie.
+        # Section bonus surfaces the right chunk type (e.g. yield_curve_kz for
+        # "evolução da curva de rendimento") across all bulletins.
+        sections = detect_sections(question) if question else []
+        section_bonus = ""
+        if sections:
+            cases = " + ".join(
+                f"(CASE WHEN rc.metadata->>'section' = '{s.replace(chr(39), '')}'"
+                f" THEN {0.08 - i * 0.01:.2f} ELSE 0 END)"
+                for i, s in enumerate(sections[:4])
+            )
+            section_bonus = f"+ {cases}"
         sql = f"""
             SELECT rc.content, rc.metadata, rd.title, rd.doc_type, rd.doc_date,
                    (1 - (rc.embedding <=> $1::vector))
                      - (COALESCE(CURRENT_DATE - rd.doc_date, 0) * 0.0005)
+                     {section_bonus}
                      AS similarity
             FROM rag_chunks rc
             JOIN rag_documents rd ON rc.document_id = rd.id
